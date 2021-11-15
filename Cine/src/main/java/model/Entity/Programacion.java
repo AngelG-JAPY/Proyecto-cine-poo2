@@ -13,6 +13,10 @@ public class Programacion {
     private int idProgramacion;
     private String fechaInicio;
     private String fechaFin;
+    
+    public Programacion(){
+        
+    }
 
     public Programacion(int idProgramacion, String fechaInicio, String fechaFin) {
         this.idProgramacion = idProgramacion;

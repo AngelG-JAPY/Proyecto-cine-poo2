@@ -17,6 +17,10 @@ public class Funcion {
     private int diaSemana;
     private Programacion programacion;
     private Tarifa tarifa;
+    
+    public Funcion(){
+        
+    }
 
     public Funcion(int id, Pelicula pelicula, int idSala, String horaInicio, int diaSemana, Programacion programacion, Tarifa tarifa) {
         this.id = id;
@@ -86,7 +90,9 @@ public class Funcion {
 
     @Override
     public String toString() {
-        return "Funcion{" + "id=" + id + ", pelicula=" + pelicula + ", idSala=" + idSala + ", horaInicio=" + horaInicio + ", diaSemana=" + diaSemana + ", programacion=" + programacion + ", tarifa=" + tarifa + '}';
+        return "id: " + id + ", pelicula: " + pelicula.getNombre() + ", idSala: " + idSala + ", horaInicio: " + horaInicio + ", diaSemana: " + diaSemana 
+                + "\n programacion: " + programacion.getIdProgramacion() +", fecha_Inicio: " + programacion.getFechaInicio()+", fecha_fin: " + programacion.getFechaFin()
+                + "\n tarifa: " + tarifa.toString();
     }
     
     

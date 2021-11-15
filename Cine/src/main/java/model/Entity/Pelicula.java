@@ -22,8 +22,7 @@ public class Pelicula {
     public Pelicula() {
     }
 
-    public Pelicula(int id, int duracion, String nombre, String genero, String director, String clasificacion, String cartelera, String trailer) {
-        this.id = id;
+    public Pelicula(int duracion, String nombre, String genero, String director, String clasificacion, String cartelera, String trailer) {
         this.duracion = duracion;
         this.nombre = nombre;
         this.genero = genero;

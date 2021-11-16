@@ -8,16 +8,16 @@ public class Usuario {
     private String genero;
     private String email;
     private int telefono;
-    private String id_membresia;
+    private Membresia membresia;
     private String contraseña;
 
-    public Usuario(String nombre, int id_usuario, String genero, String email, int telefono, String id_membresia, String contraseña) {
+    public Usuario(String nombre, int id_usuario, String genero, String email, int telefono, Membresia membresia, String contraseña) {
         this.nombre = nombre;
         this.id_usuario = id_usuario;
         this.genero = genero;
         this.email = email;
         this.telefono = telefono;
-        this.id_membresia = id_membresia;
+        this.membresia = membresia;
         this.contraseña = contraseña;
     }
 
@@ -64,12 +64,12 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public String getId_membresia() {
-        return id_membresia;
+    public Membresia getMembresia() {
+        return membresia;
     }
 
-    public void setId_membresia(String id_membresia) {
-        this.id_membresia = id_membresia;
+    public void setMembresia(Membresia membresia) {
+        this.membresia = membresia;
     }
 
     public String getContraseña() {

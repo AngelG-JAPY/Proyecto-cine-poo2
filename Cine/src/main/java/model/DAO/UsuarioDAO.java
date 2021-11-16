@@ -7,13 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Entity.Membresia;
 import model.Entity.Usuario;
 import model.Red.BaseDeDatos;
 
 
 public class UsuarioDAO {
-    public static final String SQL_CONSULTA = "SELECT * FROM usuario";
-    public static final String SQL_INSERT = "INSERT INTO usuario (nombre, id_usuario, genero, email, telefono, id_membresia, contraseña,) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static final String SQL_CONSULTA = "SELECT u.documento, u.nombre, u.genero, u.email, u.contraseña, u.telefono, m.id, m.nombre as nombre_membresia, m.valor FROM usuario u\n" +
+                                              "JOIN membresia m ON (u.id_membresia = m.id)";
+    public static final String SQL_INSERT = "INSERT INTO usuario (nombre, id_usuario, genero, email, telefono, id_membresia, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)";
     public static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
     public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, genero = ?, email = ?, telefono = ?, id_membresia = ?, contraseña = ?, WHERE id_usuario = ?";
     
@@ -22,6 +24,7 @@ public class UsuarioDAO {
         PreparedStatement ps = null;
         int registros = 0;
         try {
+            Membresia m = new Membresia();
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT);
             ps.setString(1, usuario.getNombre());
@@ -29,7 +32,7 @@ public class UsuarioDAO {
             ps.setString(3, usuario.getGenero());
             ps.setString(4, usuario.getEmail());
             ps.setInt(5, usuario.getTelefono());
-            ps.setString(6, usuario.getId_membresia());
+            ps.setInt(6, usuario.getMembresia().getId_membresia());
             ps.setString(7, usuario.getContraseña());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
@@ -81,7 +84,7 @@ public class UsuarioDAO {
             ps.setString(3, usuario.getGenero());
             ps.setString(4, usuario.getEmail());
             ps.setInt(5, usuario.getTelefono());
-            ps.setString(6, usuario.getId_membresia());
+            ps.setInt(6, usuario.getMembresia().getId_membresia());
             ps.setString(7, usuario.getContraseña());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
@@ -108,15 +111,18 @@ public class UsuarioDAO {
            ps = con.prepareStatement(SQL_CONSULTA);
            res = ps.executeQuery();
            while (res.next()){
-               String nombre = res.getString("nombre");
-               int id_usuario = res.getInt("id_usuario");
-               String genero = res.getString("genero");
-               String email = res.getString("email");
-               int telefono = res.getInt("telefono");
-               String id_membresia = res.getString("id_membresia");
-               String contraseña = res.getString("contraseña");
-               Usuario usuario = new Usuario(nombre, id_usuario, genero, email, telefono, id_membresia, contraseña);
-               autores.add(usuario);
+               Usuario s = new Usuario ();
+               Membresia m = new Membresia ();
+               s.setId_usuario(res.getInt("documento"));
+               s.setNombre(res.getString("nombre"));
+               s.setGenero(res.getString("genero"));
+               s.setEmail(res.getString("correo"));
+               s.setContraseña(res.getString("contraseña"));
+               s.setTelefono(res.getInt("telefono"));
+               m.setId_membresia(res.getInt("id"));
+               m.setNombre(res.getString("nombre_membresia"));
+               m.setValor(res.getInt("valor"));
+               s.setMembresia(m);
            }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

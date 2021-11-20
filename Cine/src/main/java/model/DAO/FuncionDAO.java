@@ -6,9 +6,11 @@
 package model.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import model.Entity.Funcion;
@@ -50,7 +52,7 @@ public class FuncionDAO {
             ps.setInt(1, f.getId());
             ps.setInt(2, f.getPelicula().getId());
             ps.setInt(3, f.getIdSala());
-            ps.setString(4, f.getHoraInicio());
+            ps.setString(4,  f.getHoraInicio());
             ps.setInt(5, f.getDiaSemana());
             ps.setInt(6, f.getProgramacion().getIdProgramacion());
             ps.setInt(7, f.getTarifa().getIdTarifa());
@@ -117,8 +119,8 @@ public class FuncionDAO {
                 f.setDiaSemana(rset.getInt("dia_semana"));
 
                 pp.setIdProgramacion(rset.getInt("id_programacion"));
-                pp.setFechaInicio(rset.getString("fecha_inicio"));
-                pp.setFechaFin(rset.getString("fecha_fin"));
+                pp.setFechaInicio(rset.getDate("fecha_inicio"));
+                pp.setFechaFin(rset.getDate("fecha_fin"));
 
                 t.setIdTarifa(rset.getInt("id_tarifa"));
                 t.setPrecio(rset.getInt("precio"));

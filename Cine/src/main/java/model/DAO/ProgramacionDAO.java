@@ -6,6 +6,7 @@
 package model.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ import model.Red.BaseDeDatos;
 public class ProgramacionDAO {
 
     private static final String QUERY_INSERTAR
-            = "INSERT INTO programacion (id_programacion, fecha_incio, fecha_fin) VALUES (?,?,?)";
+            = "INSERT INTO programacion (id_programacion,fecha_inicio,fecha_fin) VALUES (?,?,?)";
 
     private static final String QUERY_LISTAR = "SELECT * FROM programacion";
 
@@ -39,8 +40,8 @@ public class ProgramacionDAO {
             ps = con.prepareStatement(QUERY_INSERTAR);
 
             ps.setInt(1, p.getIdProgramacion());
-            ps.setString(2, p.getFechaInicio());
-            ps.setString(3, p.getFechaFin());
+            ps.setDate(2,(java.sql.Date) p.getFechaInicio());
+            ps.setDate(3,(java.sql.Date) p.getFechaFin());
             
             int consulta = ps.executeUpdate();
 
@@ -83,8 +84,8 @@ public class ProgramacionDAO {
             while(rset.next()){
                 Programacion p = new Programacion();
                 p.setIdProgramacion(rset.getInt("id_programacion"));
-                p.setFechaInicio(rset.getString("fecha_inicio"));
-                p.setFechaFin(rset.getString("fecha_fin"));
+                p.setFechaInicio(rset.getDate("fecha_inicio"));
+                p.setFechaFin(rset.getDate("fecha_fin"));
                 listaProgramacion.add(p); 
             }
 
@@ -122,8 +123,8 @@ public class ProgramacionDAO {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(QUERY_ACTULIZAR);
 
-            ps.setString(1, p.getFechaInicio());
-            ps.setString(2, p.getFechaFin());
+            ps.setDate(1, (Date) p.getFechaInicio());
+            ps.setDate(2, (Date) p.getFechaFin());
             ps.setInt(3, p.getIdProgramacion());
 
             int consulta = ps.executeUpdate();

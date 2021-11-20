@@ -5,6 +5,9 @@
  */
 package model.Entity;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  *
  * @author USUARIO

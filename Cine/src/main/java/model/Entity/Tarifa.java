@@ -24,6 +24,10 @@ public class Tarifa {
         this.precio = precio;
         this.nombre = nombre;
     }
+    
+    public Tarifa(int id){
+        this.idTarifa = id;
+    }
 
     public int getIdTarifa() {
         return idTarifa;

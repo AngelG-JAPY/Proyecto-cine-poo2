@@ -5,20 +5,26 @@
  */
 package model.Entity;
 
+import java.util.Date;
+
 /**
  *
  * @author USUARIO
  */
 public class Programacion {
     private int idProgramacion;
-    private String fechaInicio;
-    private String fechaFin;
+    private Date fechaInicio;
+    private Date fechaFin;
     
     public Programacion(){
         
     }
+    
+    public Programacion(int id){
+        this.idProgramacion = id;
+    }
 
-    public Programacion(int idProgramacion, String fechaInicio, String fechaFin) {
+    public Programacion(int idProgramacion, Date fechaInicio, Date fechaFin) {
         this.idProgramacion = idProgramacion;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -32,21 +38,23 @@ public class Programacion {
         this.idProgramacion = idProgramacion;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
+
+   
 
     @Override
     public String toString() {

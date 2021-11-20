@@ -31,6 +31,10 @@ public class Pelicula {
         this.cartelera = cartelera;
         this.trailer = trailer;
     }
+    
+    public Pelicula(int id){
+        this.id = id;
+    }
 
     public int getId() {
         return id;

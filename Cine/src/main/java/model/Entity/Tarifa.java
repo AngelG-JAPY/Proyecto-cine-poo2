@@ -25,6 +25,11 @@ public class Tarifa {
         this.nombre = nombre;
     }
     
+    public Tarifa( int precio, String nombre) {
+        this.precio = precio;
+        this.nombre = nombre;
+    }
+    
     public Tarifa(int id){
         this.idTarifa = id;
     }

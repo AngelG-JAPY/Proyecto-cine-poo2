@@ -15,9 +15,24 @@
     </head>
     <body>
 
-
-
-
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Día</th>
+                    <th scope="col">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="tarifa" items="${tarifa}">
+                    <tr>
+                        <td>${tarifa.nombre}</td>
+                        <td>${tarifa.precio}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/Tarifa/AgregarTarifa.jsp">Agregar tarifa</a>
+        
 
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

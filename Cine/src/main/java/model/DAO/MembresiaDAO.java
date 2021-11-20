@@ -8,32 +8,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Entity.Membresia;
-import model.Entity.Usuario;
 import model.Red.BaseDeDatos;
 
 
-public class UsuarioDAO {
-    public static final String SQL_CONSULTA = "SELECT u.documento, u.nombre, u.genero, u.email, u.contraseña, u.telefono, m.id, m.nombre as nombre_membresia, m.valor FROM usuario u\n" +
-                                              "JOIN membresia m ON (u.id_membresia = m.id)";
-    public static final String SQL_INSERT = "INSERT INTO usuario (nombre, id_usuario, genero, email, telefono, membresia, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    public static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
-    public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, genero = ?, email = ?, telefono = ?, membresia = ?, contraseña = ?, WHERE id_usuario = ?";
+public class MembresiaDAO {
+    public static final String SQL_CONSULTA = "SELECT m.id, m.nombre, m.valor FROM membresia";
+    public static final String SQL_INSERT = "INSERT INTO membresia (nombre, id, valor) VALUES (?, ?, ?)";
+    public static final String SQL_DELETE = "DELETE FROM membresia WHERE id = ?";
+    public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, valor = ?, WHERE id = ?";
     
-    public int insertar(Usuario usuario) {
+    public int insertar(Membresia membresia) {
         Connection con = null;
         PreparedStatement ps = null;
         int registros = 0;
         try {
-            Membresia m = new Membresia();
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT);
-            ps.setString(1, usuario.getNombre());
-            ps.setInt(2, usuario.getId_usuario());
-            ps.setString(3, usuario.getGenero());
-            ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getTelefono());
-            ps.setInt(6, usuario.getMembresia().getId_membresia());
-            ps.setString(7, usuario.getContraseña());
+            ps.setString(1, membresia.getNombre());
+            ps.setInt(2, membresia.getId_membresia());
+            ps.setInt(3, membresia.getValor());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -49,14 +42,14 @@ public class UsuarioDAO {
         return registros;
     }
 
-    public int borrar(Usuario usuario) {
+    public int borrar(Membresia membresia) {
         Connection con = null;
         PreparedStatement ps = null;
         int registros = 0;
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_DELETE);
-            ps.setInt(1, usuario.getId_usuario());
+            ps.setInt(1, membresia.getId_membresia());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -72,20 +65,16 @@ public class UsuarioDAO {
         return registros;    
     }
 
-    public int actualizar(Usuario usuario) {
+    public int actualizar(Membresia membresia) {
         Connection con = null;
         PreparedStatement ps = null;
         int registros = 0;
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_UPDATE);
-            ps.setString(1, usuario.getNombre());
-            ps.setInt(2, usuario.getId_usuario());
-            ps.setString(3, usuario.getGenero());
-            ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getTelefono());
-            ps.setInt(6, usuario.getMembresia().getId_membresia());
-            ps.setString(7, usuario.getContraseña());
+            ps.setString(1, membresia.getNombre());
+            ps.setInt(2, membresia.getId_membresia());
+            ps.setInt(3, membresia.getValor());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -101,28 +90,20 @@ public class UsuarioDAO {
         return registros;
     }
 
-    public List<Usuario> consultar() {
+    public List<Membresia> consultar() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet res = null;
-        List<Usuario> usuarios = new ArrayList();
+        List<Membresia> membresia = new ArrayList();
         try {
            con = BaseDeDatos.getConnection();
            ps = con.prepareStatement(SQL_CONSULTA);
            res = ps.executeQuery();
            while (res.next()){
-               Usuario s = new Usuario ();
                Membresia m = new Membresia ();
-               s.setId_usuario(res.getInt("documento"));
-               s.setNombre(res.getString("nombre"));
-               s.setGenero(res.getString("genero"));
-               s.setEmail(res.getString("correo"));
-               s.setContraseña(res.getString("contraseña"));
-               s.setTelefono(res.getInt("telefono"));
                m.setId_membresia(res.getInt("id"));
                m.setNombre(res.getString("nombre_membresia"));
                m.setValor(res.getInt("valor"));
-               s.setMembresia(m);
            }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -136,6 +117,6 @@ public class UsuarioDAO {
                 ex.printStackTrace(System.out);
             }
         }
-        return usuarios;
+        return membresia;
     }
 }

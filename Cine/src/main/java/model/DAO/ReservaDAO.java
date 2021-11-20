@@ -2,38 +2,41 @@
 package model.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Entity.Membresia;
+import model.Entity.Reserva;
 import model.Entity.Usuario;
 import model.Red.BaseDeDatos;
 
 
-public class UsuarioDAO {
-    public static final String SQL_CONSULTA = "SELECT u.documento, u.nombre, u.genero, u.email, u.contraseña, u.telefono, m.id, m.nombre as nombre_membresia, m.valor FROM usuario u\n" +
+public class ReservaDAO {
+    public static final String SQL_CONSULTA = "SELECT id_reserva, id_funcion, id_comida, id_usuario, fecha_funcion, fecha_reserva, precio_reserva, cantidad_sillas FROM reserva u\n" +
                                               "JOIN membresia m ON (u.id_membresia = m.id)";
-    public static final String SQL_INSERT = "INSERT INTO usuario (nombre, id_usuario, genero, email, telefono, membresia, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    public static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
-    public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, genero = ?, email = ?, telefono = ?, membresia = ?, contraseña = ?, WHERE id_usuario = ?";
+    public static final String SQL_INSERT = "INSERT INTO reserva (id_reserva, id_funcion, id_comida, id_usuario, fecha_funcion, fecha_reserva, precio_reserva, cantidad_sillas) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public static final String SQL_DELETE = "DELETE FROM reserva WHERE id_reserva = ?";
+    public static final String SQL_UPDATE = "UPDATE reserva SET id_funcion = ?, id_comida = ?, id_usuario = ?, fecha_funcion = ?, fecha_reserva = ?, precio_reserva = ?, cantidad_sillas = ?, WHERE id_reserva = ?";
     
-    public int insertar(Usuario usuario) {
+    public int insertar(Reserva reserva) {
         Connection con = null;
         PreparedStatement ps = null;
         int registros = 0;
         try {
-            Membresia m = new Membresia();
+            Usuario u = new Usuario();
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT);
-            ps.setString(1, usuario.getNombre());
-            ps.setInt(2, usuario.getId_usuario());
-            ps.setString(3, usuario.getGenero());
-            ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getTelefono());
-            ps.setInt(6, usuario.getMembresia().getId_membresia());
-            ps.setString(7, usuario.getContraseña());
+            ps.setInt(1, reserva.getId_reserva());
+            ps.setInt(2, reserva.getId_funcion());
+            ps.setInt(3, reserva.getId_comida());
+            ps.setInt(4, reserva.getId_usuario().getId_usuario());
+            ps.setDate(5, (Date) reserva.getFecha_funcion());
+            ps.setDate(6, (Date) reserva.getFecha_reserva());
+            ps.setInt(7, reserva.getPrecio_reserva());
+            ps.setInt(8, reserva.getCantidad_sillas());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -49,14 +52,14 @@ public class UsuarioDAO {
         return registros;
     }
 
-    public int borrar(Usuario usuario) {
+    public int borrar(Reserva reserva) {
         Connection con = null;
         PreparedStatement ps = null;
         int registros = 0;
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_DELETE);
-            ps.setInt(1, usuario.getId_usuario());
+            ps.setInt(1, reserva.getId_reserva());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -72,20 +75,21 @@ public class UsuarioDAO {
         return registros;    
     }
 
-    public int actualizar(Usuario usuario) {
+    public int actualizar(Reserva reserva) {
         Connection con = null;
         PreparedStatement ps = null;
         int registros = 0;
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_UPDATE);
-            ps.setString(1, usuario.getNombre());
-            ps.setInt(2, usuario.getId_usuario());
-            ps.setString(3, usuario.getGenero());
-            ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getTelefono());
-            ps.setInt(6, usuario.getMembresia().getId_membresia());
-            ps.setString(7, usuario.getContraseña());
+            ps.setInt(1, reserva.getId_reserva());
+            ps.setInt(2, reserva.getId_funcion());
+            ps.setInt(3, reserva.getId_comida());
+            ps.setInt(4, reserva.getId_usuario().getId_usuario());
+            ps.setDate(5, (Date) reserva.getFecha_funcion());
+            ps.setDate(6, (Date) reserva.getFecha_reserva());
+            ps.setInt(7, reserva.getPrecio_reserva());
+            ps.setInt(8, reserva.getCantidad_sillas());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -101,17 +105,17 @@ public class UsuarioDAO {
         return registros;
     }
 
-    public List<Usuario> consultar() {
+    public List<Reserva> consultar() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet res = null;
-        List<Usuario> usuarios = new ArrayList();
+        List<Reserva> reservas = new ArrayList();
         try {
            con = BaseDeDatos.getConnection();
            ps = con.prepareStatement(SQL_CONSULTA);
            res = ps.executeQuery();
            while (res.next()){
-               Usuario s = new Usuario ();
+               Reserva r = new Reserva ();
                Membresia m = new Membresia ();
                s.setId_usuario(res.getInt("documento"));
                s.setNombre(res.getString("nombre"));
@@ -136,6 +140,6 @@ public class UsuarioDAO {
                 ex.printStackTrace(System.out);
             }
         }
-        return usuarios;
+        return reservas;
     }
 }

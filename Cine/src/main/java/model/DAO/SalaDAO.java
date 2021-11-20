@@ -19,9 +19,9 @@ import model.Red.BaseDeDatos;
  */
 public class SalaDAO {
     public static final String SQL_CONSULTA = "SELECT * FROM sala";
-    public static final String SQL_INSERT = "INSERT INTO sala (documento, nombre, apellido) VALUES (?, ?, ?)";
-    public static final String SQL_DELETE = "DELETE FROM sala WHERE documento = ?";
-    public static final String SQL_UPDATE = "UPDATE sala SET nombre = ?, apellido = ?, WHERE documento = ?";
+    public static final String SQL_INSERT = "INSERT INTO sala (cantidad_asientos) VALUES (?)";
+    public static final String SQL_DELETE = "DELETE FROM sala WHERE id = ?";
+    public static final String SQL_UPDATE = "UPDATE sala SET cantidad_asientos = ? WHERE id = ?";
     
     
     public int Insertar(Sala sala){
@@ -31,8 +31,7 @@ public class SalaDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT);
-            ps.setString(1, sala.getId());
-            ps.setInt(2, sala.getAsientos() );
+            ps.setInt(1, sala.getCantidad_asientos() );
            
             registros = ps.executeUpdate();
             if(registros== 1){
@@ -69,8 +68,14 @@ public class SalaDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_DELETE);
-            ps.setString(1, sala.getId());
+            ps.setInt(1, sala.getId());
             registros = ps.executeUpdate();
+             if(registros== 1){
+                System.out.println("Sala borrada");
+            }
+            else{
+                System.out.println("Error");
+            }
         }
             catch(SQLException ex){
                 ex.printStackTrace(System.out);
@@ -100,8 +105,9 @@ public class SalaDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_UPDATE);
-            ps.setString(1, sala.getId());
-            ps.setInt(2, sala.getAsientos());
+            ps.setInt(1, sala.getCantidad_asientos());
+            ps.setInt(2, sala.getId());
+            
             
             registros = ps.executeUpdate();
             
@@ -146,8 +152,8 @@ public class SalaDAO {
            res = ps.executeQuery();
            while (res.next()){
               Sala sala = new Sala ();
-               sala.setId(res.getString("id_sala"));
-               sala.setAsientos(res.getInt("n_asientos"));
+               sala.setId(res.getInt("id"));
+               sala.setCantidad_asientos(res.getInt("cantidad_asientos"));
                salalist.add(sala);
            }
         } catch (SQLException ex) {

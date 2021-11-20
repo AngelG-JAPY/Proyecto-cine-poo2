@@ -19,9 +19,9 @@ import model.Red.BaseDeDatos;
  */
 public class ConfiteriaDAO {
     public static final String SQL_CONSULTA = "SELECT * FROM confiteria";
-    public static final String SQL_INSERT = "INSERT INTO confiteria (documento, nombre, apellido) VALUES (?, ?, ?)";
-    public static final String SQL_DELETE = "DELETE FROM confiteria WHERE documento = ?";
-    public static final String SQL_UPDATE = "UPDATE confiteria SET nombre = ?, apellido = ?, WHERE documento = ?";
+    public static final String SQL_INSERT = "INSERT INTO confiteria (id, nombre, precio, cantidad) VALUES (?, ?, ?,?)";
+    public static final String SQL_DELETE = "DELETE FROM confiteria WHERE id = ?";
+    public static final String SQL_UPDATE = "UPDATE confiteria SET nombre = ?, precio = ?,cantidad = ? WHERE id = ?";
     
     
     public int Insertar(Confiteria confiteria){
@@ -36,6 +36,12 @@ public class ConfiteriaDAO {
             ps.setInt(3, confiteria.getCantidad());
             ps.setInt(4, confiteria.getPrecio());
             registros = ps.executeUpdate();
+             if(registros== 1){
+                System.out.println("Confiteria Agregada");
+            }
+            else{
+                System.out.println("Error");
+            }
         }
             catch(SQLException ex){
                 ex.printStackTrace(System.out);
@@ -66,6 +72,12 @@ public class ConfiteriaDAO {
             ps = con.prepareStatement(SQL_DELETE);
             ps.setInt(1, confiteria.getId());
             registros = ps.executeUpdate();
+             if(registros== 1){
+                System.out.println("Confiteria Borrada");
+            }
+            else{
+                System.out.println("Error");
+            }
         } 
             catch(SQLException ex){
                 ex.printStackTrace(System.out);
@@ -95,11 +107,18 @@ public class ConfiteriaDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_UPDATE);
-            ps.setInt(1, confiteria.getId());
-            ps.setString(2, confiteria.getNombre());
+            
+            ps.setString(1, confiteria.getNombre());
+            ps.setInt(2, confiteria.getPrecio());
             ps.setInt(3, confiteria.getCantidad());
-            ps.setInt(4, confiteria.getPrecio());
+            ps.setInt(4, confiteria.getId());
             registros = ps.executeUpdate();
+             if(registros== 1){
+                System.out.println("Confiteria Actualizada");
+            }
+            else{
+                System.out.println("Error");
+            }
         } 
             catch(SQLException ex){
                 ex.printStackTrace(System.out);
@@ -133,9 +152,10 @@ public class ConfiteriaDAO {
            res = ps.executeQuery();
            while (res.next()){
               Confiteria confiteria = new Confiteria ();
-               confiteria.setId(res.getInt("codigo"));
+               confiteria.setId(res.getInt("id"));
                confiteria.setNombre(res.getString("nombre"));
                confiteria.setPrecio(res.getInt("precio"));
+               confiteria.setCantidad(res.getInt("cantidad"));
                comidalist.add(confiteria);
            }
         } catch (SQLException ex) {

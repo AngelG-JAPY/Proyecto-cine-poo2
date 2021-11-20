@@ -17,7 +17,7 @@ public class Confiteria {
     public Confiteria() {
     }
 
-    public Confiteria(String Nombre, int Id, int Precio, int Cantidad) {
+    public Confiteria( int Id, String Nombre, int Precio, int Cantidad) {
         this.Nombre = Nombre;
         this.Id = Id;
         this.Precio = Precio;

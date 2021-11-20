@@ -9,36 +9,49 @@ package model.Entity;
  * @author USUARIO
  */
 public class Sala {
-   private String Id;
-   private int Asientos;
+   private int id;
+   private int cantidad_asientos;
+
+    public Sala(int cantidad_asientos) {
+        
+        this.cantidad_asientos = cantidad_asientos;
+    }
 
     public Sala() {
     }
 
-    public Sala(String Id, int Asientos) {
-        this.Id = Id;
-        this.Asientos = Asientos;
+    public Sala(int id, int cantidad_asientos) {
+        this.id = id;
+        this.cantidad_asientos = cantidad_asientos;
+    }
+    
+    
+    public int getId() {
+        return id;
     }
 
-    public String getId() {
-        return Id;
+    public int getCantidad_asientos() {
+        return cantidad_asientos;
     }
 
-    public int getAsientos() {
-        return Asientos;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setId(String Id) {
-        this.Id = Id;
-    }
-
-    public void setAsientos(int Asientos) {
-        this.Asientos = Asientos;
+    public void setCantidad_asientos(int cantidad_asientos) {
+        this.cantidad_asientos = cantidad_asientos;
     }
 
     @Override
     public String toString() {
-        return "Sala{" + "Id=" + Id + ", Asientos=" + Asientos + '}';
+        return "Sala{" + "id=" + id + ", cantidad_asientos=" + cantidad_asientos + '}';
     }
+
+   
+   
+   
+   
+   
+   
    
 }

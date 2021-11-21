@@ -27,7 +27,9 @@ public class TarifaDAO {
 
     private static final String QUERY_ACTULIZAR = "UPDATE tarifa SET precio = ?, nombre = ? WHERE id_tarifa = ?";
 
-    private static final String QUERY_ELIMINAR = "DELETE FROM tarifa WHERE id = ?";
+    private static final String QUERY_ELIMINAR = "DELETE FROM tarifa WHERE id_tarifa = ?";
+
+    private static final String QUERY_CONSULTA_BY_ID = "SELECT * FROM tarifa WHERE id_tarifa = ?";
 
     public void insertar(Tarifa f) {
         Connection con = null;
@@ -185,5 +187,43 @@ public class TarifaDAO {
                 e.printStackTrace(System.out);
             }
         }
+    }
+
+    public Tarifa consultarPorID(Tarifa tarifa) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rset = null;
+        Tarifa f = null;
+        try {
+
+            con = BaseDeDatos.getConnection();
+            ps = con.prepareStatement(QUERY_CONSULTA_BY_ID, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
+            ps.setInt(1, tarifa.getIdTarifa());
+            rset = ps.executeQuery();
+            rset.absolute(1);
+            
+            f = new Tarifa(rset.getInt("id_tarifa"), rset.getInt("precio"), rset.getString("nombre"));
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                    System.out.println("Cerrada la conexión");
+                }
+                if (ps != null) {
+                    ps.close();
+                    System.out.println("Cerrada la consultaa");
+                }
+                if (rset != null) {
+                    rset.close();
+                    System.out.println("Cerrado los resultados");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
+        }
+        return f;
     }
 }

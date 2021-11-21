@@ -22,7 +22,7 @@ import model.Entity.Tarifa;
 @WebServlet("/tarifas")
 public class TarifaController extends HttpServlet{
     
-    public void listarTarifas (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    private void listarTarifas (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         TarifaDAO t = new TarifaDAO();
         List<Tarifa> tarifas = t.listarTarifa();
         req.setAttribute("tarifa", tarifas);
@@ -30,10 +30,28 @@ public class TarifaController extends HttpServlet{
     }
     
     
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        listarTarifas(req, resp);
+        String accion = req.getParameter("accion");
+        if(accion != null){
+            switch(accion){
+                case "eliminar":
+                    this.eliminar(req, resp);
+                    break;
+                    
+                case "editar":
+                    this.editar(req, resp);
+                    break;
+                    
+                default:
+                    this.listarTarifas(req, resp);
+            }
+        }else{
+            listarTarifas(req, resp);
+        }
     }
     
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String accion = req.getParameter("accion");
         if(accion != null){
@@ -41,7 +59,9 @@ public class TarifaController extends HttpServlet{
                 case "registrar":
                     this.insertar(req, resp);
                     break;
-                    
+                case "modificar":
+                    this.modificar(req,resp);
+                    break;
                 default:
                     this.listarTarifas(req, resp);
             }
@@ -53,10 +73,36 @@ public class TarifaController extends HttpServlet{
     private void insertar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String dia = req.getParameter("dia");
         String precio = req.getParameter("precio");
-        
         Tarifa t = new Tarifa(Integer.valueOf(precio), dia);
         TarifaDAO td = new TarifaDAO();
         td.insertar(t);
+        this.listarTarifas(req, resp);
+    }
+
+    private void eliminar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       String id = req.getParameter("id");
+       
+       TarifaDAO  t = new TarifaDAO();
+       System.out.println(id);
+       t.eliminarTarifa(new Tarifa(Integer.valueOf(id)));
+       this.listarTarifas(req, resp);
+    }
+
+    private void editar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String id = req.getParameter("id");
+        Tarifa tarifa = new TarifaDAO().consultarPorID(new Tarifa(Integer.valueOf(id)));
+        req.setAttribute("tarifa", tarifa);
+        req.getRequestDispatcher("Tarifa/editarTarifa.jsp").forward(req, resp);
+    }
+
+    private void modificar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        int id = Integer.valueOf(req.getParameter("id"));
+        String nombre = req.getParameter("nombre");
+        int precio = Integer.valueOf(req.getParameter("precio"));
+        
+        TarifaDAO t = new TarifaDAO();
+        Tarifa f = new Tarifa(id, precio, nombre);
+        t.actualizarTarifa(f);
         this.listarTarifas(req, resp);
     }
     

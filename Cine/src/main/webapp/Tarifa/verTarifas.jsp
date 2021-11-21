@@ -18,21 +18,29 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th scope="col">id</th>
                     <th scope="col">Día</th>
                     <th scope="col">Precio</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="tarifa" items="${tarifa}">
                     <tr>
+                        <td>${tarifa.idTarifa}</td>
                         <td>${tarifa.nombre}</td>
                         <td>${tarifa.precio}</td>
+                        <td>
+                            <a class="btn btn-outline-danger" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/tarifas?id=${tarifa.idTarifa}&accion=eliminar">Eliminar</a>
+                            <a class="btn btn-outline-danger" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/tarifas?id=${tarifa.idTarifa}&accion=editar">Editar</a>
+                        </td>
                     </tr>
+
                 </c:forEach>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/Tarifa/AgregarTarifa.jsp">Agregar tarifa</a>
-        
+        <a class="btn btn-outline-dark" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/Tarifa/AgregarTarifa.jsp">Agregar tarifa</a>
+
 
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

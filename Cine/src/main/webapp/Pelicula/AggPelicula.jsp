@@ -15,7 +15,7 @@
     </head>
     <body>
         <div class="container mt-4">
-            <form method="get" action="${pageContext.request.contextPath}/peliculas?accion=registar">
+            <form method="post" action="${pageContext.request.contextPath}/peliculas?accion=registar" enctype="multipart/form-data">
                 <div class="card">
                     <div class="card-header">
                         <h3>Registro de Pelicula</h3>
@@ -30,7 +30,7 @@
 
                             <!<!-- cartelera -->
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="inputGroupFile02" name="cartelera" required>
+                                <input type="file" class="form-control" id="inputGroupFile02" name="cartelera" >
                                 <label class="input-group-text" for="inputGroupFile02">Cartelera</label>
                             </div>
 

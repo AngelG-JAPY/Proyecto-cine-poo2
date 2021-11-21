@@ -21,6 +21,10 @@ public class Usuario {
         this.contraseña = contraseña;
     }
 
+    public Usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
     public Usuario() {
     }
 

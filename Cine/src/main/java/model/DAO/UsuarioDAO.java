@@ -18,6 +18,8 @@ public class UsuarioDAO {
     public static final String SQL_INSERT = "INSERT INTO usuario (nombre, id_usuario, genero, email, telefono, membresia, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)";
     public static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
     public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, genero = ?, email = ?, telefono = ?, membresia = ?, contraseña = ?, WHERE id_usuario = ?";
+    public static final String SQL_CONSULTAID = "SELECT u.nombre, u.genero, u.email, u.contraseña, u.telefono, m.id, m.nombre as nombre_membresia, m.valor FROM usuario u\n" +
+                                              "JOIN membresia m ON (u.id_membresia = m.id) FROM usuario WHERE id_usuario = ?";
     
     public int insertar(Usuario usuario) {
         Connection con = null;
@@ -137,5 +139,35 @@ public class UsuarioDAO {
             }
         }
         return usuarios;
+    }
+    
+    public Usuario consultarPorID(Usuario usuario) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet res = null;
+        Usuario u = null;
+        Membresia m = null;
+        try {
+
+            con = BaseDeDatos.getConnection();
+            ps = con.prepareStatement(SQL_CONSULTAID, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
+            ps.setInt(1, usuario.getId_usuario());
+            res = ps.executeQuery();
+            res.absolute(1);
+            m = new Membresia(res.getInt("id"), res.getString("nombre_membresia"), res.getInt("valor"));
+            u = new Usuario(res.getString("nombre"), res.getInt("documento"), res.getString("genero"), res.getString("correo"), res.getInt("telefono"), m, res.getString("contraseña"));
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                BaseDeDatos.closeResult(res);
+                BaseDeDatos.closePreparedStatement(ps);
+                BaseDeDatos.closeConnection(con);
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
+        }
+        return u;
     }
 }

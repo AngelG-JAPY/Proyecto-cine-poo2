@@ -92,7 +92,7 @@ public class PeliculaDAO {
                 p.setNombre(rset.getString("nombre"));
                 p.setGenero(rset.getString("genero"));
                 p.setDuracion(rset.getInt("duracion"));
-                p.setDirector(rset.getString("directo"));
+                p.setDirector(rset.getString("director"));
                 p.setClasificacion(rset.getString("clasificacion"));
                 p.setCartelera(rset.getString("cartelera"));
                 p.setTrailer(rset.getString("trailer"));

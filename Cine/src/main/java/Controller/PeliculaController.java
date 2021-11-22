@@ -36,15 +36,15 @@ public class PeliculaController extends HttpServlet {
                 case "borrar":
                     this.borrar(req, resp);
                     break;
-                    
+
                 case "editar":
-                    this.editar(req,resp);
+                    this.editar(req, resp);
                     break;
-                    
+
                 default:
                     this.listarPeliculas(req, resp);
             }
-            this.listarPeliculas(req, resp);
+
         } else {
             this.listarPeliculas(req, resp);
         }
@@ -54,14 +54,19 @@ public class PeliculaController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String accion = req.getParameter("accion");
         if (accion != null) {
-            switch (accion) {     
+            switch (accion) {
                 case "registar":
-                    this.registrar(req,resp);
-                    this.listarPeliculas(req, resp);
-                    break;    
+                    this.registrar(req, resp);
+                    break;
+
+                case "modificar":
+                    this.modifcar(req, resp);
+
+                    break;
                 default:
                     this.listarPeliculas(req, resp);
             }
+
         } else {
             this.listarPeliculas(req, resp);
         }
@@ -75,46 +80,40 @@ public class PeliculaController extends HttpServlet {
     }
 
     private void borrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       int id = Integer.valueOf(req.getParameter("id"));
-       PeliculaDAO pd = new PeliculaDAO();
-       pd.eliminarPelicula(new Pelicula(id));
+        int id = Integer.valueOf(req.getParameter("id"));
+        PeliculaDAO pd = new PeliculaDAO();
+        pd.eliminarPelicula(new Pelicula(id));
+        this.listarPeliculas(req, resp);
     }
 
     private void editar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
+        int id = Integer.valueOf(req.getParameter("id"));
+        Pelicula pelicula = new PeliculaDAO().consultarByID(new Pelicula(id));
+        req.setAttribute("pelicula", pelicula);
+        req.getRequestDispatcher("Pelicula/EditarPelicula.jsp").forward(req, resp);
     }
 
     private void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        /*String nombre = req.getParameter("nombre");
-        String genero = req.getParameter("genero");
-        int duracion = Integer.valueOf(req.getParameter("duracion"));
-        String director = req.getParameter("director");
-        String clasificacion = req.getParameter("clasificacion");*/
+
         Pelicula p = new Pelicula();
         PeliculaDAO pd = new PeliculaDAO();
-        
-        try{
+
+        try {
             ArrayList<String> lista = new ArrayList();
             FileItemFactory file = new DiskFileItemFactory();
             ServletFileUpload fileUpload = new ServletFileUpload(file);
             List items = fileUpload.parseRequest(req);
             for (int i = 0; i < items.size(); i++) {
                 FileItem fileItem = (FileItem) items.get(i);
-                if(!fileItem.isFormField()){
-                    File f = new File("C:\\AppServ\\www\\phpMyAdmin\\img\\"+fileItem.getName());
+                if (!fileItem.isFormField()) {
+                    File f = new File("C:\\AppServ\\www\\phpMyAdmin\\img\\" + fileItem.getName());
                     fileItem.write(f);
-                    p.setCartelera("http://localhost/phpMyAdmin/img/"+fileItem.getName());
-                }else{
+                    p.setCartelera("http://localhost/phpMyAdmin/img/" + fileItem.getName());
+                } else {
                     lista.add(fileItem.getString());
                 }
             }
-            /*p.setNombre(nombre);
-            p.setGenero(genero);
-            p.setDuracion(duracion);
-            p.setDirector(director);
-            p.setClasificacion(clasificacion);
-            p.setTrailer("falta");*/
             p.setNombre(lista.get(0));
             p.setGenero(lista.get(1));
             p.setDuracion(Integer.valueOf(lista.get(2)));
@@ -122,10 +121,28 @@ public class PeliculaController extends HttpServlet {
             p.setClasificacion(lista.get(4));
             p.setTrailer("falta");
             pd.insertar(p);
-            
-        }catch(Exception e){
-            
+            this.listarPeliculas(req, resp);
+
+        } catch (Exception e) {
+
         }
+
+    }
+
+    private void modifcar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        int id = Integer.valueOf(req.getParameter("id"));
+        String nombre = req.getParameter("nombre");
+        String genero = req.getParameter("genero");
+        String duracion = req.getParameter("duracion");
+        String director = req.getParameter("director");
+        String clasificacion = req.getParameter("clasificacion");
+        String cartelera = req.getParameter("cartelera");
         
+        Pelicula p = new Pelicula(Integer.valueOf(duracion), nombre, genero, director, clasificacion, cartelera, "falta");
+        p.setId(id);
+        PeliculaDAO pd = new PeliculaDAO();
+        pd.actualizarPelicula(p);
+        this.listarPeliculas(req, resp);
     }
 }

@@ -24,10 +24,12 @@ public class PeliculaDAO {
             = "INSERT INTO pelicula (nombre, genero, duracion, director, clasificacion, cartelera, trailer) VALUES (?,?,?,?,?,?,?)";
 
     private static final String QUERY_LISTAR = "SELECT * FROM pelicula";
-    
+
     private static final String QUERY_ACTULIZAR = "UPDATE pelicula SET nombre = ?, genero = ?, duracion = ?, director = ?, clasificacion = ?, cartelera = ?, trailer = ? WHERE id = ?";
 
     private static final String QUERY_ELIMINAR = "DELETE FROM pelicula WHERE id = ?";
+
+    private static final String QUERY_CONSULTA_BY_ID = "SELECT * FROM pelicula WHERE id = ?";
 
 //C R U D
     public void insertar(Pelicula p) {
@@ -79,14 +81,14 @@ public class PeliculaDAO {
         PreparedStatement ps = null;
         ResultSet rset = null;
         List<Pelicula> listaPeliculas = new ArrayList();
-        
+
         try {
 
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(QUERY_LISTAR);
             rset = ps.executeQuery();
-            
-            while(rset.next()){
+
+            while (rset.next()) {
                 Pelicula p = new Pelicula();
                 p.setId(rset.getInt("id"));
                 p.setNombre(rset.getString("nombre"));
@@ -96,10 +98,9 @@ public class PeliculaDAO {
                 p.setClasificacion(rset.getString("clasificacion"));
                 p.setCartelera(rset.getString("cartelera"));
                 p.setTrailer(rset.getString("trailer"));
-                
+
                 listaPeliculas.add(p);
             }
-            
 
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -113,7 +114,7 @@ public class PeliculaDAO {
                     ps.close();
                     System.out.println("Cerrada la consultaa");
                 }
-                if(rset != null){
+                if (rset != null) {
                     rset.close();
                     System.out.println("Cerrado los resultados");
                 }
@@ -203,6 +204,44 @@ public class PeliculaDAO {
                 e.printStackTrace(System.out);
             }
         }
+    }
+
+    public Pelicula consultarByID(Pelicula p) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rset = null;
+        Pelicula pelicula = null;
+
+        try {
+
+            con = BaseDeDatos.getConnection();
+            ps = con.prepareStatement(QUERY_CONSULTA_BY_ID, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.TYPE_FORWARD_ONLY);
+            ps.setInt(1, p.getId());
+            rset = ps.executeQuery();
+            rset.absolute(1);
+            pelicula = new Pelicula(rset.getInt("duracion"), rset.getString("nombre"), rset.getString("genero"), rset.getString("director"), rset.getString("clasificacion"), rset.getString("cartelera"), rset.getString("trailer"));
+            pelicula.setId(rset.getInt("id"));
+        } catch (SQLException e) {
+
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                    System.out.println("Cerrada la conexión");
+                }
+                if (ps != null) {
+                    ps.close();
+                    System.out.println("Cerrada la consultaa");
+                }
+                if (rset != null) {
+                    rset.close();
+                    System.out.println("Cerrado los resultados");
+                }
+            } catch (SQLException e) {
+
+            }
+        }
+        return pelicula;
     }
 
 }

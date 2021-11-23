@@ -95,7 +95,8 @@ public class PeliculaController extends HttpServlet {
     }
 
     private void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        
+        String id = req.getParameter("duracion");
         Pelicula p = new Pelicula();
         PeliculaDAO pd = new PeliculaDAO();
 
@@ -107,9 +108,14 @@ public class PeliculaController extends HttpServlet {
             for (int i = 0; i < items.size(); i++) {
                 FileItem fileItem = (FileItem) items.get(i);
                 if (!fileItem.isFormField()) {
+
                     File f = new File("C:\\AppServ\\www\\phpMyAdmin\\img\\" + fileItem.getName());
+                    if(f.exists()){
+                        System.out.println(f.delete());
+                    }
                     fileItem.write(f);
-                    p.setCartelera("http://localhost/phpMyAdmin/img/" + fileItem.getName());
+                    p.setCartelera("http://localhost/phpMyAdmin/img/"+fileItem.getName());
+
                 } else {
                     lista.add(fileItem.getString());
                 }
@@ -138,7 +144,7 @@ public class PeliculaController extends HttpServlet {
         String director = req.getParameter("director");
         String clasificacion = req.getParameter("clasificacion");
         String cartelera = req.getParameter("cartelera");
-        
+
         Pelicula p = new Pelicula(Integer.valueOf(duracion), nombre, genero, director, clasificacion, cartelera, "falta");
         p.setId(id);
         PeliculaDAO pd = new PeliculaDAO();

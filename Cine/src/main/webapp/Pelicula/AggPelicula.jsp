@@ -15,56 +15,36 @@
     </head>
     <body>
         <div class="container mt-4">
-            <form method="post" action="${pageContext.request.contextPath}/peliculas?accion=registar" enctype="multipart/form-data">
+            <form method="post" action="${pageContext.request.contextPath}/peliculas?accion=registar" >
                 <div class="card">
                     <div class="card-header">
                         <h3>Registro de Pelicula</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <!<!-- nombre -->
+                            <!<!-- ID -->
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Nombre de la Pelicula</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nombre" required>
+                                <span class="input-group-text" id="inputGroup-sizing-default">ID de la programación</span>
+                                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="id" required>
                             </div>
 
-                            <!<!-- cartelera -->
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="inputGroupFile02" name="cartelera" >
-                                <label class="input-group-text" for="inputGroupFile02">Cartelera</label>
-                            </div>
-
-                            <!<!-- Genero -->
+                           
+                            <!<!-- Fecha de Inicio -->
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Genero/s</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="genero" required>
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Fecha de Inicio</span>
+                                    <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="fecha-inicio" required>
                                 </div>
                             </div>
 
-                            <!<!-- Duración -->
+                            <!<!-- Fecha de Inicio -->
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Duración</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="duracion" required>
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Fecha de Fin</span>
+                                    <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="fecha-fin" required>
                                 </div>
                             </div>
-
-                            <!<!-- Director -->
-                            <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Director</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="director" required>
-                                </div>
-                            </div>
-
-                            <!<!-- Clasificación -->
-                            <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Clasificación</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="clasificacion" required>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="card-footer">

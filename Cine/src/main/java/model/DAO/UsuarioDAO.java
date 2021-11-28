@@ -1,4 +1,6 @@
 
+
+/* Usuario us = new Usuario(javier, 151,... new Membresia(1)*/
 package model.DAO;
 
 import java.sql.Connection;

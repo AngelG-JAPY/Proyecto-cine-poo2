@@ -141,7 +141,7 @@ public class ReservaDAO {
                 u.setNombre(res.getString("nombre"));
                 u.setGenero(res.getString("genero"));
                 u.setEmail(res.getString("email"));
-                u.setContraseña(res.getInt("contraseña"));
+                u.setContrasenia(res.getString("contraseña"));
                 u.setTelefono(res.getInt("telefono"));
                 
                 u.setMembresia(m);

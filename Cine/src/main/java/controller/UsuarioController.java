@@ -66,17 +66,18 @@ public class UsuarioController extends HttpServlet {
         String nombre = req.getParameter("nombre");
         String genero = req.getParameter("genero");
         String email = req.getParameter("email");
-        int contraseña = Integer.valueOf(req.getParameter("contraseña"));
+        String contraseña = req.getParameter("contrasenia");
         int telefono = Integer.valueOf(req.getParameter("telefono"));
-        Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("id")));
-        Usuario u = new Usuario(id_usuario, nombre, genero, email, contraseña, telefono, membresia);
+        Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("membresia")));
+        Usuario u = new Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
+        System.out.println(u.getGenero()+" membresia: "+u.getMembresia().getId()+" contraseña: "+contraseña);
         UsuarioDAO ud = new UsuarioDAO();
         ud.insertar(u);
         this.listarUsuarios(req, resp);
     }
 
     private void eliminar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String idUs = req.getParameter("id");
+        String idUs = req.getParameter("documento");
 
         UsuarioDAO ud = new UsuarioDAO();
         System.out.println(idUs);
@@ -85,7 +86,7 @@ public class UsuarioController extends HttpServlet {
     }
 
     private void editar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String idUs = req.getParameter("id");
+        String idUs = req.getParameter("documento");
         Usuario usuarios = new UsuarioDAO().consultarPorID(new Usuario(Integer.valueOf(idUs)));
         req.setAttribute("usuario", usuarios);
         req.getRequestDispatcher("usuario/verus.jsp").forward(req, resp);
@@ -96,11 +97,11 @@ public class UsuarioController extends HttpServlet {
         int id_usuario = Integer.valueOf(req.getParameter("documento"));
         String genero = req.getParameter("genero");
         String email = req.getParameter("email");
-        int contraseña = Integer.valueOf(req.getParameter("contraseña"));
+        String contraseña =req.getParameter("contraseña");
         int telefono = Integer.valueOf(req.getParameter("telefono"));
         Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("id")), req.getParameter("nombre"), Integer.valueOf(req.getParameter("precio")));
         UsuarioDAO ud = new UsuarioDAO();
-        Usuario u = new Usuario(id_usuario, nombre, genero, email, contraseña, telefono, membresia);
+        Usuario u = new Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
         ud.actualizar(u);
         this.listarUsuarios(req, resp);
     }

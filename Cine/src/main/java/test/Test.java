@@ -24,7 +24,7 @@ public class Test {
     
     public static void main(String[] args) {
         
-        MembresiaDAO m = new MembresiaDAO();
+       /* MembresiaDAO m = new MembresiaDAO();
         
         List<Membresia> membresias = new ArrayList();
         
@@ -32,17 +32,17 @@ public class Test {
        
         for (int i=0; i<membresias.size(); i++){
             System.out.println("nombre mem = "+membresias.get(i).getNombre());
-        }
+        }*/
         
-        UsuarioDAO u = new UsuarioDAO();
-        //u.insertar(new Usuario(1, "Javier", "M", "javier.com", 44566, 31162935, new Membresia(3)));
-        List<Usuario> us = new ArrayList();
-        us = u.consultar();
-        for (int i=0; i<us.size(); i++){
+        //UsuarioDAO u = new UsuarioDAO();
+       // u.insertar(new Usuario(1, "Javier", "M", "javier.com", "44566", 31162935, new Membresia(1)));
+        //List<Usuario> us = new ArrayList();
+        //us = u.consultar();
+        /*for (int i=0; i<us.size(); i++){
             System.out.println("nombre us = "+us.get(i).getNombre());
-        }
+        }*/
         
-        ReservaDAO r = new ReservaDAO();
+        //ReservaDAO r = new ReservaDAO();
         //r.insertar(new Reserva(1, new Funcion(1), new Usuario(1), new Confiteria(1), new Date(11-10-2021), new Date(11/10/2021), 100, 2));
         
         

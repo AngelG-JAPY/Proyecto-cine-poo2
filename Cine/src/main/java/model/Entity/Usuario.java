@@ -9,23 +9,23 @@ public class Usuario {
     private String email;
     private int telefono;
     private Membresia membresia;
-    private int contraseña;
+    private String contrasenia;
 
-    public Usuario(int id_usuario, String nombre, String genero, String email, int contraseña, int telefono, Membresia membresia) {
-        this.nombre = nombre;
-        this.id_usuario = id_usuario;
-        this.genero = genero;
-        this.email = email;
-        this.telefono = telefono;
-        this.membresia = membresia;
-        this.contraseña = contraseña;
+    public Usuario() {
     }
 
     public Usuario(int id_usuario) {
         this.id_usuario = id_usuario;
     }
 
-    public Usuario() {
+    public Usuario(String nombre, int id_usuario, String genero, String email, int telefono, Membresia membresia, String contrasenia) {
+        this.nombre = nombre;
+        this.id_usuario = id_usuario;
+        this.genero = genero;
+        this.email = email;
+        this.telefono = telefono;
+        this.membresia = membresia;
+        this.contrasenia = contrasenia;
     }
 
     public String getNombre() {
@@ -76,18 +76,22 @@ public class Usuario {
         this.membresia = membresia;
     }
 
-    public int getContraseña() {
-        return contraseña;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public void setContraseña(int contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "nombre=" + nombre + ", id_usuario=" + id_usuario + ", genero=" + genero + ", email=" + email + ", telefono=" + telefono + ", membresia=" + membresia + ", contrase\u00f1a=" + contraseña + '}';
+        return "Usuario{" + "nombre=" + nombre + ", id_usuario=" + id_usuario + ", genero=" + genero + ", email=" + email + ", telefono=" + telefono + ", membresia=" + membresia + ", contrasenia=" + contrasenia + '}';
     }
+
+   
+
+   
     
     
     

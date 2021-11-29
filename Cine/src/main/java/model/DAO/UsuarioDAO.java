@@ -27,14 +27,14 @@ public class UsuarioDAO {
         PreparedStatement ps = null;
         int registros = 0;
         try {
-            Membresia m = new Membresia();
+            
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT); 
             ps.setInt(1, usuario.getId_usuario());
             ps.setString(2, usuario.getNombre());
             ps.setString(3, usuario.getGenero());
             ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getContraseña());
+            ps.setString(5, usuario.getContrasenia());
             ps.setInt(6, usuario.getTelefono());
             ps.setInt(7, usuario.getMembresia().getId());
             registros = ps.executeUpdate();
@@ -86,7 +86,7 @@ public class UsuarioDAO {
             ps.setString(2, usuario.getNombre());
             ps.setString(3, usuario.getGenero());
             ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getContraseña());
+            ps.setString(5, usuario.getContrasenia());
             ps.setInt(6, usuario.getTelefono());
             ps.setInt(7, usuario.getMembresia().getId());
             registros = ps.executeUpdate();
@@ -120,7 +120,7 @@ public class UsuarioDAO {
                s.setNombre(res.getString("nombre"));
                s.setGenero(res.getString("genero"));
                s.setEmail(res.getString("email"));
-               s.setContraseña(res.getInt("contraseña"));
+               s.setContrasenia(res.getString("contraseña"));
                s.setTelefono(res.getInt("telefono"));
                m.setId(res.getInt("id"));
                s.setMembresia(m);
@@ -130,7 +130,7 @@ public class UsuarioDAO {
             ex.printStackTrace(System.out);
         }finally{
             try{
-                BaseDeDatos.closeResult(res);
+                res.close();
                 BaseDeDatos.closePreparedStatement(ps);
                 BaseDeDatos.closeConnection(con);
             }
@@ -155,7 +155,8 @@ public class UsuarioDAO {
             res = ps.executeQuery();
             res.absolute(1);
             m = new Membresia(res.getInt("id"), res.getString("nombre_membresia"), res.getInt("valor"));
-            u = new Usuario(res.getInt("documento"), res.getString("nombre"), res.getString("genero"), res.getString("email"),res.getInt("contraseña"), res.getInt("telefono"), m);
+            //String nombre, int id_usuario, String genero, String email, int telefono, Membresia membresia, String contrasenia
+            u = new Usuario(res.getString("nombre"), res.getInt("documento"), res.getString("genero"), res.getString("email"), res.getInt("telefono"), m, res.getString("contraseña"));
 
         } catch (SQLException e) {
             e.printStackTrace(System.out);

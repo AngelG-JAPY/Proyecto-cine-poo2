@@ -24,6 +24,14 @@ public class Confiteria {
         this.Cantidad = Cantidad;
     }
 
+    public Confiteria(String nombre, String id, String precio, String cantidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Confiteria(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }

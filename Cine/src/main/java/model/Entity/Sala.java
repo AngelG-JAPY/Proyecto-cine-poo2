@@ -24,6 +24,10 @@ public class Sala {
         this.id = id;
         this.cantidad_asientos = cantidad_asientos;
     }
+
+    public Sala(String cantidad_asientos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     public int getId() {

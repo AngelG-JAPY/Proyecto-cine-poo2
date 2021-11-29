@@ -9,9 +9,9 @@ public class Usuario {
     private String email;
     private int telefono;
     private Membresia membresia;
-    private String contraseña;
+    private int contraseña;
 
-    public Usuario(String nombre, int id_usuario, String genero, String email, int telefono, Membresia membresia, String contraseña) {
+    public Usuario(int id_usuario, String nombre, String genero, String email, int contraseña, int telefono, Membresia membresia) {
         this.nombre = nombre;
         this.id_usuario = id_usuario;
         this.genero = genero;
@@ -76,12 +76,17 @@ public class Usuario {
         this.membresia = membresia;
     }
 
-    public String getContraseña() {
+    public int getContraseña() {
         return contraseña;
     }
 
-    public void setContraseña(String contraseña) {
+    public void setContraseña(int contraseña) {
         this.contraseña = contraseña;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nombre=" + nombre + ", id_usuario=" + id_usuario + ", genero=" + genero + ", email=" + email + ", telefono=" + telefono + ", membresia=" + membresia + ", contrase\u00f1a=" + contraseña + '}';
     }
     
     

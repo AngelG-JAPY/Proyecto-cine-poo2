@@ -12,7 +12,7 @@ import model.Red.BaseDeDatos;
 
 
 public class MembresiaDAO {
-    public static final String SQL_CONSULTA = "SELECT m.id, m.nombre, m.valor FROM membresia";
+    public static final String SQL_CONSULTA = "SELECT * FROM membresia";
     public static final String SQL_INSERT = "INSERT INTO membresia (nombre, id, valor) VALUES (?, ?, ?)";
     public static final String SQL_DELETE = "DELETE FROM membresia WHERE id = ?";
     public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, valor = ?, WHERE id = ?";
@@ -25,7 +25,7 @@ public class MembresiaDAO {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT);
             ps.setString(1, membresia.getNombre());
-            ps.setInt(2, membresia.getId_membresia());
+            ps.setInt(2, membresia.getId());
             ps.setInt(3, membresia.getValor());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
@@ -49,7 +49,7 @@ public class MembresiaDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_DELETE);
-            ps.setInt(1, membresia.getId_membresia());
+            ps.setInt(1, membresia.getId());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -73,7 +73,7 @@ public class MembresiaDAO {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_UPDATE);
             ps.setString(1, membresia.getNombre());
-            ps.setInt(2, membresia.getId_membresia());
+            ps.setInt(2, membresia.getId());
             ps.setInt(3, membresia.getValor());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
@@ -93,23 +93,24 @@ public class MembresiaDAO {
     public List<Membresia> consultar() {
         Connection con = null;
         PreparedStatement ps = null;
-        ResultSet res = null;
+        ResultSet rset = null;
         List<Membresia> membresia = new ArrayList();
         try {
            con = BaseDeDatos.getConnection();
            ps = con.prepareStatement(SQL_CONSULTA);
-           res = ps.executeQuery();
-           while (res.next()){
+           rset = ps.executeQuery();
+           while (rset.next()){
                Membresia m = new Membresia ();
-               m.setId_membresia(res.getInt("id"));
-               m.setNombre(res.getString("nombre_membresia"));
-               m.setValor(res.getInt("valor"));
+               m.setId(rset.getInt("id"));
+               m.setNombre(rset.getString("nombre"));
+               m.setValor(rset.getInt("valor"));
+               membresia.add(m);
            }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }finally{
             try{
-                BaseDeDatos.closeResult(res);
+                BaseDeDatos.closeResult(rset);
                 BaseDeDatos.closePreparedStatement(ps);
                 BaseDeDatos.closeConnection(con);
             }

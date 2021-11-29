@@ -13,13 +13,12 @@ import model.Red.BaseDeDatos;
 
 
 public class UsuarioDAO {
-    public static final String SQL_CONSULTA = "SELECT u.documento, u.nombre, u.genero, u.email, u.contraseña, u.telefono, m.id, m.nombre as nombre_membresia, m.valor FROM usuario u\n" +
-                                              "JOIN membresia m ON (u.id_membresia = m.id)";
-    public static final String SQL_INSERT = "INSERT INTO usuario (nombre, id_usuario, genero, email, telefono, membresia, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    public static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
-    public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, genero = ?, email = ?, telefono = ?, membresia = ?, contraseña = ?, WHERE id_usuario = ?";
+    public static final String SQL_CONSULTA = "SELECT * FROM usuario JOIN membresia m ON (id_membresia = m.id)";
+    public static final String SQL_INSERT = "INSERT INTO usuario (documento, nombre, genero, email, contraseña, telefono, id_membresia) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static final String SQL_DELETE = "DELETE FROM usuario WHERE documento = ?";
+    public static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, genero = ?, email = ?, telefono = ?, id_membresia = ?, contraseña = ?, WHERE documento = ?";
     public static final String SQL_CONSULTAID = "SELECT u.nombre, u.genero, u.email, u.contraseña, u.telefono, m.id, m.nombre as nombre_membresia, m.valor FROM usuario u\n" +
-                                              "JOIN membresia m ON (u.id_membresia = m.id) FROM usuario WHERE id_usuario = ?";
+                                              "JOIN membresia m ON (u.id_membresia = m.id) FROM usuario WHERE documento = ?";
     
     public int insertar(Usuario usuario) {
         Connection con = null;
@@ -28,14 +27,14 @@ public class UsuarioDAO {
         try {
             Membresia m = new Membresia();
             con = BaseDeDatos.getConnection();
-            ps = con.prepareStatement(SQL_INSERT);
-            ps.setString(1, usuario.getNombre());
-            ps.setInt(2, usuario.getId_usuario());
+            ps = con.prepareStatement(SQL_INSERT); 
+            ps.setInt(1, usuario.getId_usuario());
+            ps.setString(2, usuario.getNombre());
             ps.setString(3, usuario.getGenero());
             ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getTelefono());
-            ps.setInt(6, usuario.getMembresia().getId_membresia());
-            ps.setString(7, usuario.getContraseña());
+            ps.setInt(5, usuario.getContraseña());
+            ps.setInt(6, usuario.getTelefono());
+            ps.setInt(7, usuario.getMembresia().getId());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -81,13 +80,13 @@ public class UsuarioDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_UPDATE);
-            ps.setString(1, usuario.getNombre());
-            ps.setInt(2, usuario.getId_usuario());
+            ps.setInt(1, usuario.getId_usuario());
+            ps.setString(2, usuario.getNombre());
             ps.setString(3, usuario.getGenero());
             ps.setString(4, usuario.getEmail());
-            ps.setInt(5, usuario.getTelefono());
-            ps.setInt(6, usuario.getMembresia().getId_membresia());
-            ps.setString(7, usuario.getContraseña());
+            ps.setInt(5, usuario.getContraseña());
+            ps.setInt(6, usuario.getTelefono());
+            ps.setInt(7, usuario.getMembresia().getId());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -118,13 +117,12 @@ public class UsuarioDAO {
                s.setId_usuario(res.getInt("documento"));
                s.setNombre(res.getString("nombre"));
                s.setGenero(res.getString("genero"));
-               s.setEmail(res.getString("correo"));
-               s.setContraseña(res.getString("contraseña"));
+               s.setEmail(res.getString("email"));
+               s.setContraseña(res.getInt("contraseña"));
                s.setTelefono(res.getInt("telefono"));
-               m.setId_membresia(res.getInt("id"));
-               m.setNombre(res.getString("nombre_membresia"));
-               m.setValor(res.getInt("valor"));
+               m.setId(res.getInt("id"));
                s.setMembresia(m);
+               usuarios.add(s);
            }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -155,7 +153,7 @@ public class UsuarioDAO {
             res = ps.executeQuery();
             res.absolute(1);
             m = new Membresia(res.getInt("id"), res.getString("nombre_membresia"), res.getInt("valor"));
-            u = new Usuario(res.getString("nombre"), res.getInt("documento"), res.getString("genero"), res.getString("correo"), res.getInt("telefono"), m, res.getString("contraseña"));
+            u = new Usuario(res.getInt("documento"), res.getString("nombre"), res.getString("genero"), res.getString("email"),res.getInt("contraseña"), res.getInt("telefono"), m);
 
         } catch (SQLException e) {
             e.printStackTrace(System.out);

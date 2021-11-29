@@ -19,7 +19,7 @@ public class UsuarioController extends HttpServlet{
         UsuarioDAO ud = new UsuarioDAO();
         List<Usuario> usuarios = ud.consultar();
         req.setAttribute("usuario", usuarios);
-        req.getRequestDispatcher("Usuario/verUsuarios.jsp").forward(req, resp);
+        req.getRequestDispatcher("usuario/verus.jsp").forward(req, resp);
     }
     
     
@@ -40,7 +40,7 @@ public class UsuarioController extends HttpServlet{
                     this.listarUsuarios(req, resp);
             }
         }else{
-            listarUsuarios(req, resp);
+            this.listarUsuarios(req, resp);
         }
     }
     
@@ -49,7 +49,7 @@ public class UsuarioController extends HttpServlet{
         String accion = req.getParameter("accion");
         if(accion != null){
             switch(accion){
-                case "registrar":
+                case "insertar":
                     this.insertar(req, resp);
                     break;
                 case "modificar":
@@ -64,14 +64,14 @@ public class UsuarioController extends HttpServlet{
     }
 
     private void insertar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        String nombre = req.getParameter("nombre");
         int id_usuario = Integer.valueOf(req.getParameter("documento"));
+        String nombre = req.getParameter("nombre");
         String genero = req.getParameter("genero");
-        String email = req.getParameter("correo");
+        String email = req.getParameter("email");
+        int contraseña = Integer.valueOf(req.getParameter("contraseña"));
         int telefono = Integer.valueOf(req.getParameter("telefono"));
-        Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("id")), req.getParameter("nombre_membresia"), Integer.valueOf(req.getParameter("valor")));
-        String contraseña = req.getParameter("contraseña");
-        Usuario u = new Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
+        Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("id")));
+        Usuario u = new Usuario(id_usuario, nombre, genero, email, contraseña, telefono, membresia);
         UsuarioDAO ud = new UsuarioDAO();
         ud.insertar(u);
         this.listarUsuarios(req, resp);
@@ -90,19 +90,19 @@ public class UsuarioController extends HttpServlet{
         String idUs = req.getParameter("id");
         Usuario usuarios = new UsuarioDAO().consultarPorID(new Usuario(Integer.valueOf(idUs)));
         req.setAttribute("usuario", usuarios);
-        req.getRequestDispatcher("Usuario/verUsuarios.jsp").forward(req, resp);
+        req.getRequestDispatcher("usuario/verus.jsp").forward(req, resp);
     }
 
     private void modificar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String nombre = req.getParameter("nombre");
         int id_usuario = Integer.valueOf(req.getParameter("documento"));
         String genero = req.getParameter("genero");
-        String email = req.getParameter("correo");
+        String email = req.getParameter("email");
+        int contraseña = Integer.valueOf(req.getParameter("contraseña"));
         int telefono = Integer.valueOf(req.getParameter("telefono"));
-        Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("id")), req.getParameter("nombre_membresia"), Integer.valueOf(req.getParameter("valor")));
-        String contraseña = req.getParameter("contraseña");
+        Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("id")), req.getParameter("nombre"), Integer.valueOf(req.getParameter("precio")));
         UsuarioDAO ud = new UsuarioDAO();
-        Usuario u = new Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
+        Usuario u = new Usuario(id_usuario, nombre, genero, email, contraseña, telefono, membresia);
         ud.actualizar(u);
         this.listarUsuarios(req, resp);
     }

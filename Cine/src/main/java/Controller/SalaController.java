@@ -19,7 +19,7 @@ import model.Entity.Sala;
  *
  * @author USUARIO
  */
-@WebServlet(" /sala ")
+@WebServlet("/sala")
 public class SalaController extends HttpServlet {
     protected void doGet(HttpServletRequest req, 
             HttpServletResponse resp) throws ServletException, IOException 

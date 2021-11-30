@@ -19,7 +19,7 @@ import model.Entity.Confiteria;
  *
  * @author USUARIO
  */
-@WebServlet(" /confiteria ")
+@WebServlet("/confiteria")
 public class ConfiteriaController extends HttpServlet {
 
     protected void doGet(HttpServletRequest req,

@@ -8,20 +8,24 @@ public class Usuario {
     private String genero;
     private String email;
     private int telefono;
-    private String id_membresia;
-    private String contraseña;
+    private Membresia membresia;
+    private String contrasenia;
 
-    public Usuario(String nombre, int id_usuario, String genero, String email, int telefono, String id_membresia, String contraseña) {
+    public Usuario() {
+    }
+
+    public Usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public Usuario(String nombre, int id_usuario, String genero, String email, int telefono, Membresia membresia, String contrasenia) {
         this.nombre = nombre;
         this.id_usuario = id_usuario;
         this.genero = genero;
         this.email = email;
         this.telefono = telefono;
-        this.id_membresia = id_membresia;
-        this.contraseña = contraseña;
-    }
-
-    public Usuario() {
+        this.membresia = membresia;
+        this.contrasenia = contrasenia;
     }
 
     public String getNombre() {
@@ -64,21 +68,30 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public String getId_membresia() {
-        return id_membresia;
+    public Membresia getMembresia() {
+        return membresia;
     }
 
-    public void setId_membresia(String id_membresia) {
-        this.id_membresia = id_membresia;
+    public void setMembresia(Membresia membresia) {
+        this.membresia = membresia;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nombre=" + nombre + ", id_usuario=" + id_usuario + ", genero=" + genero + ", email=" + email + ", telefono=" + telefono + ", membresia=" + membresia + ", contrasenia=" + contrasenia + '}';
+    }
+
+   
+
+   
     
     
     

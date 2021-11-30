@@ -39,8 +39,8 @@
                         <td>${usu.telefono}</td>
                         <td>${usu.membresia.id}</td>
                         <td>
-                            <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/usuarios?documento=${usu.id_usuario}&accion=eliminar">Eliminar</a>
-                            <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/usuarios?documento=${usu.id_usuario}&accion=editar">Editar</a>
+                            <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/usuario?documento=${usu.id_usuario}&accion=eliminar">Eliminar</a>
+                            <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" href="${pageContext.request.contextPath}/usuario?documento=${usu.id_usuario}&accion=editar">Editar</a>
                         </td>  
                     </tr>
                 </c:forEach>

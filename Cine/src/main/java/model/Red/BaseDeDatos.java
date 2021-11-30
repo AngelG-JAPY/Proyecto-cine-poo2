@@ -19,9 +19,11 @@ import org.apache.commons.dbcp2.BasicDataSource;
  */
 public class BaseDeDatos {
     //Direccion, puerto, nombre de la base de datos. Adicional, usuario y clave
-    public static final String JDBC_URL = "jdbc:mysql://localhost:3306/cinemania?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    public static final String DB_USER = "root";
-    public static final String DB_CLAVE = "angelg18"; //poner su clave de acceso al phpmyadmin
+   // public static final String JDBC_URL = "jdbc:mysql://localhost:3306/cinemania?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    public static final String JDBC_URL = "jdbc:mysql://18.205.156.69/cinemania?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    public static final String DB_USER = "cine";
+    public static final String DB_CLAVE = "1152069";
+
 
     public BaseDeDatos() {
 

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Controller;
 
 import java.io.IOException;
@@ -9,14 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DAO.UsuarioDAO;
 import model.Entity.Membresia;
-import model.Entity.Usuario;
 
-@WebServlet("/usuarios")
-public class UsuarioController extends HttpServlet {
-
+/**
+ *
+ * @author USUARIO
+ */
+@WebServlet("/usuario")
+public class UsuarioC extends HttpServlet{
+ 
     private void listarUsuarios(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UsuarioDAO ud = new UsuarioDAO();
-        List<Usuario> usuarios = ud.consultar();
+        List<model.Entity.Usuario> usuarios = ud.consultar();
         req.setAttribute("usuarios", usuarios);
         req.getRequestDispatcher("usuario/verus.jsp").forward(req, resp);
     }
@@ -69,7 +77,7 @@ public class UsuarioController extends HttpServlet {
         String contraseña = req.getParameter("contrasenia");
         int telefono = Integer.valueOf(req.getParameter("telefono"));
         Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("membresia")));
-        Usuario u = new Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
+        model.Entity.Usuario u = new model.Entity.Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
         System.out.println(u.getGenero()+" membresia: "+u.getMembresia().getId()+" contraseña: "+contraseña);
         UsuarioDAO ud = new UsuarioDAO();
         ud.insertar(u);
@@ -81,13 +89,13 @@ public class UsuarioController extends HttpServlet {
 
         UsuarioDAO ud = new UsuarioDAO();
         System.out.println(idUs);
-        ud.borrar(new Usuario(Integer.valueOf(idUs)));
+        ud.borrar(new model.Entity.Usuario(Integer.valueOf(idUs)));
         this.listarUsuarios(req, resp);
     }
 
     private void editar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idUs = req.getParameter("documento");
-        Usuario usuarios = new UsuarioDAO().consultarPorID(new Usuario(Integer.valueOf(idUs)));
+        model.Entity.Usuario usuarios = new UsuarioDAO().consultarPorID(new model.Entity.Usuario(Integer.valueOf(idUs)));
         req.setAttribute("usuario", usuarios);
         req.getRequestDispatcher("usuario/verus.jsp").forward(req, resp);
     }
@@ -101,8 +109,8 @@ public class UsuarioController extends HttpServlet {
         int telefono = Integer.valueOf(req.getParameter("telefono"));
         Membresia membresia = new Membresia(Integer.valueOf(req.getParameter("id")), req.getParameter("nombre"), Integer.valueOf(req.getParameter("precio")));
         UsuarioDAO ud = new UsuarioDAO();
-        Usuario u = new Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
+        model.Entity.Usuario u = new model.Entity.Usuario(nombre, id_usuario, genero, email, telefono, membresia, contraseña);
         ud.actualizar(u);
         this.listarUsuarios(req, resp);
-    }
+    }   
 }

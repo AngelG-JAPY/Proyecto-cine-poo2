@@ -43,7 +43,7 @@ public class ConfiteriaController extends HttpServlet {
                         this.BorrarConfiteria(req, resp);
                         //this.BorrarConfiteria(req, resp);
             }
-           
+            System.out.println("");
         }
         else{
             this.ConsultarConfiteria(req, resp);

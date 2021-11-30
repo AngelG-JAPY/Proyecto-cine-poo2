@@ -122,9 +122,10 @@ public class ProgramacionDAO {
 
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(QUERY_ACTULIZAR);
+            
 
-            ps.setDate(1, (Date) p.getFechaInicio());
-            ps.setDate(2, (Date) p.getFechaFin());
+            ps.setDate(1, (java.sql.Date) p.getFechaInicio());
+            ps.setDate(2, (java.sql.Date) p.getFechaFin());
             ps.setInt(3, p.getIdProgramacion());
 
             int consulta = ps.executeUpdate();

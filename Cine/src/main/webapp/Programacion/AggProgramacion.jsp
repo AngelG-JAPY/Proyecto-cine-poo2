@@ -14,7 +14,7 @@
     </head>
     <body>
         <div class="container mt-4">
-            <form method="post" action="${pageContext.request.contextPath}/peliculas?accion=registar" >
+            <form method="post" action="${pageContext.request.contextPath}/programaciones?accion=registar" >
                 <div class="card">
                     <div class="card-header">
                         <h3>Registro de Pelicula</h3>
@@ -24,7 +24,7 @@
                             <!<!-- ID -->
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="inputGroup-sizing-default">ID de la Programacion</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="id" required>
+                                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="id" required>
                             </div>
 
                             
@@ -43,7 +43,6 @@
                                     <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="fecha-fin" required>
                                 </div>
                             </div>
-
                          
                         </div>
                     </div>

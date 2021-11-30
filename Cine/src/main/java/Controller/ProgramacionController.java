@@ -6,6 +6,8 @@
 package Controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,8 +62,17 @@ public class ProgramacionController extends HttpServlet {
         req.getRequestDispatcher("Programacion/VerProgramacion.jsp").forward(req, resp);   
     }
 
-    private void registrar(HttpServletRequest req, HttpServletResponse resp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.valueOf(req.getParameter("id"));
+        Date inicio = Date.valueOf(req.getParameter("fecha-inicio"));
+        Date fin = Date.valueOf(req.getParameter("fecha-fin"));       
+        System.out.println(req.getParameter("fecha-inicio"));
+        
+        Programacion p = new Programacion(id, inicio, fin);
+        ProgramacionDAO pd = new ProgramacionDAO();
+        
+        pd.insertarProgramacion(p);
+        this.listarProgramaciones(req, resp);
     }
     
 }

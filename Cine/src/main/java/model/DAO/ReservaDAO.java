@@ -32,13 +32,13 @@ public class ReservaDAO {
             Usuario u = new Usuario();
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT);
-            ps.setInt(2, reserva.getId_funcion().getId());
-            ps.setInt(4, reserva.getId_usuario().getId_usuario());
+            ps.setInt(1, reserva.getId_funcion().getId());
+            ps.setInt(2, reserva.getId_usuario().getId_usuario());
             ps.setInt(3, reserva.getId_comida().getId());
-            ps.setDate(5, (Date) reserva.getFecha_funcion());
-            ps.setDate(6, (Date) reserva.getFecha_reserva());
-            ps.setInt(7, reserva.getPrecio_reserva());
-            ps.setInt(8, reserva.getCantidad_sillas());
+            ps.setDate(4, (Date) reserva.getFecha_funcion());
+            ps.setDate(5, (Date) reserva.getFecha_reserva());
+            ps.setInt(6, reserva.getPrecio_reserva());
+            ps.setInt(7, reserva.getCantidad_sillas());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -60,6 +60,8 @@ public class ReservaDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_DELETE);
+            ps.setInt(1, reserva.getId_funcion().getId());
+            s.setInt(2, reserva.getId_usuario().getId_usuario());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

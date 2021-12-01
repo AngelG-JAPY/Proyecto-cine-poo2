@@ -55,11 +55,11 @@ public class ConfiteriaController extends HttpServlet {
 
     private void AgregarConfiteria(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nombre = req.getParameter("nombre");
-        String id = req.getParameter("id");
-        String precio = req.getParameter("precio");
-        String cantidad = req.getParameter("cantidad");
+        int id = Integer.parseInt(req.getParameter("id"));
+        int precio = Integer.parseInt(req.getParameter("precio"));
+        int cantidad = Integer.parseInt(req.getParameter("cantidad"));
 
-        Confiteria confiteria = new Confiteria(nombre, id, precio, cantidad);
+        Confiteria confiteria = new Confiteria(id, nombre, precio, cantidad);
 
         int registros = new ConfiteriaDAO().Insertar(confiteria);
 
@@ -67,7 +67,7 @@ public class ConfiteriaController extends HttpServlet {
     }
 
     private void BorrarConfiteria(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+        int id = Integer.parseInt(req.getParameter("id"));
         int registros = new ConfiteriaDAO().borrar(new Confiteria(id));
         this.ConsultarConfiteria(req, resp);
     }

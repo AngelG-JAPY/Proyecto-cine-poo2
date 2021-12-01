@@ -52,8 +52,8 @@ public class BaseDeDatos {
         st.close();
     }
     
-    public static void closeResult(ResultSet rset) throws SQLException{
-        rset.close();
+    public static void closeResult(ResultSet res) throws SQLException{
+        res.close();
     }
     
     public static void closePreparedStatement(PreparedStatement pstmt) throws SQLException{

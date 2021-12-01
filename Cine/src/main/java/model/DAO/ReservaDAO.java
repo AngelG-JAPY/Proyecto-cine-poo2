@@ -19,14 +19,10 @@ import model.Red.BaseDeDatos;
 
 public class ReservaDAO {
 
-    public static final String SQL_CONSULTA = "SELECT * FROM reserva u\n"
-            + "JOIN usuario u ON (r.id_usuario = u.documento) u\n"
-            + "JOIN membresia m ON (u.id_membresia = m.id) u\n"
-            + "JOIN confiteria c ON (r.id_comida = c.id) u\n"
-            + "JOIN funcion f ON (r.id_funcion = f.id)";
-    public static final String SQL_INSERT = "INSERT INTO reserva (id, id_funcion, id_usuario, id_comida, fecha_funcion, fecha_reserva, precio_reserva, cantidad_asientos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    public static final String SQL_DELETE = "DELETE FROM reserva WHERE id = ?";
-    public static final String SQL_UPDATE = "UPDATE reserva SET id_funcion = ?, id_usuario = ?, id_comida = ?, fecha_funcion = ?, fecha_reserva = ?, precio_reserva = ?, cantidad_asientos = ?, WHERE id = ?";
+    public static final String SQL_CONSULTA = "SELECT * FROM reserva\n";
+    public static final String SQL_INSERT = "INSERT INTO reserva (id_funcion, id_usuario, id_comida, fecha_funcion, fecha_reserva, precio_reserva, cantidad_asientos) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static final String SQL_DELETE = "DELETE FROM reserva WHERE id_funcion = ?, id_usuario = ?";
+    //public static final String SQL_UPDATE = "UPDATE reserva SET fecha_funcion = ?, fecha_reserva = ?, precio_reserva = ?, cantidad_asientos = ?, WHERE id = ?";
 
     public int insertar(Reserva reserva) {
         Connection con = null;
@@ -36,7 +32,6 @@ public class ReservaDAO {
             Usuario u = new Usuario();
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_INSERT);
-            ps.setInt(1, reserva.getId_reserva());
             ps.setInt(2, reserva.getId_funcion().getId());
             ps.setInt(4, reserva.getId_usuario().getId_usuario());
             ps.setInt(3, reserva.getId_comida().getId());
@@ -65,7 +60,6 @@ public class ReservaDAO {
         try {
             con = BaseDeDatos.getConnection();
             ps = con.prepareStatement(SQL_DELETE);
-            ps.setInt(1, reserva.getId_reserva());
             registros = ps.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -79,7 +73,8 @@ public class ReservaDAO {
         }
         return registros;
     }
-
+    
+    /*
     public int actualizar(Reserva reserva) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -107,7 +102,7 @@ public class ReservaDAO {
             }
         }
         return registros;
-    }
+    }*/
 
     public List<Reserva> consultar() {
         Connection con = null;
@@ -119,7 +114,7 @@ public class ReservaDAO {
             ps = con.prepareStatement(SQL_CONSULTA);
             res = ps.executeQuery();
             while (res.next()) {
-                Reserva r = new Reserva();
+                /*Reserva r = new Reserva();
                 Usuario u = new Usuario();
                 Membresia m = new Membresia();
                 Confiteria c = new Confiteria();
@@ -178,6 +173,16 @@ public class ReservaDAO {
                 r.setId_funcion(f);
                 r.setId_comida(c);
                 r.setId_usuario(u);
+                r.setFecha_funcion(res.getDate("fecha_funcion"));
+                r.setFecha_reserva(res.getDate("fecha_reserva"));
+                r.setPrecio_reserva(res.getInt("precio_reserva"));
+                r.setCantidad_sillas(res.getInt("cantidad_asientos"));
+                reservas.add(r);*/
+                
+                Reserva r = new Reserva();
+                r.setId_funcion(new Funcion(res.getInt("id_funcion")));
+                r.setId_usuario(new Usuario(res.getInt("id_usuario")));
+                r.setId_comida(new Confiteria(res.getInt("id_comida")));
                 r.setFecha_funcion(res.getDate("fecha_funcion"));
                 r.setFecha_reserva(res.getDate("fecha_reserva"));
                 r.setPrecio_reserva(res.getInt("precio_reserva"));

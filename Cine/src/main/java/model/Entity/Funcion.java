@@ -25,6 +25,10 @@ public class Funcion {
         
     }
 
+    public Funcion(int id) {
+        this.id = id;
+    }
+
     public Funcion(int id, Pelicula pelicula, int idSala, String horaInicio, int diaSemana, Programacion programacion, Tarifa tarifa) {
         this.id = id;
         this.pelicula = pelicula;

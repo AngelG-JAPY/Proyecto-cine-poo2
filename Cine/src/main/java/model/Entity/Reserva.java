@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 public class Reserva {
-    private int id_reserva;
+    
     private Funcion id_funcion;
     private Confiteria id_comida;
     private Usuario id_usuario;
@@ -14,8 +14,8 @@ public class Reserva {
     private int precio_reserva;
     private int cantidad_sillas;
 
-    public Reserva(int id_reserva, Funcion id_funcion, Usuario id_usuario, Confiteria id_comida, Date fecha_funcion, Date fecha_reserva, int precio_reserva, int cantidad_sillas) {
-        this.id_reserva = id_reserva;
+    public Reserva(Funcion id_funcion, Usuario id_usuario, Confiteria id_comida, Date fecha_funcion, Date fecha_reserva, int precio_reserva, int cantidad_sillas) {
+
         this.id_funcion = id_funcion;
         this.id_comida = id_comida;
         this.id_usuario = id_usuario;
@@ -25,20 +25,13 @@ public class Reserva {
         this.cantidad_sillas = cantidad_sillas;
     }
 
-    public Reserva(int id_reserva) {
-        this.id_reserva = id_reserva;
-    }
+
 
     public Reserva() {
     }
 
-    public int getId_reserva() {
-        return id_reserva;
-    }
 
-    public void setId_reserva(int id_reserva) {
-        this.id_reserva = id_reserva;
-    }
+
 
     public Funcion getId_funcion() {
         return id_funcion;
@@ -100,7 +93,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "id_reserva=" + id_reserva + ", id_funcion=" + id_funcion + ", id_comida=" + id_comida + ", id_usuario=" + id_usuario + ", fecha_funcion=" + fecha_funcion + ", fecha_reserva=" + fecha_reserva + ", precio_reserva=" + precio_reserva + ", cantidad_sillas=" + cantidad_sillas + '}';
+        return "Reserva{" + "id_funcion=" + id_funcion.getId() + ", id_comida=" + id_comida.getId() + ", id_usuario=" + id_usuario.getId_usuario() + ", fecha_funcion=" + fecha_funcion.getTime() + ", fecha_reserva=" + fecha_reserva.getTime() + ", precio_reserva=" + precio_reserva + ", cantidad_sillas=" + cantidad_sillas + '}';
     }
 
     

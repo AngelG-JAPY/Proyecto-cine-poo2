@@ -18,6 +18,7 @@ import model.DAO.PeliculaDAO;
 import model.Entity.Pelicula;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -94,13 +95,13 @@ public class PeliculaController extends HttpServlet {
         req.getRequestDispatcher("Pelicula/EditarPelicula.jsp").forward(req, resp);
     }
 
-    private void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, FileUploadException, Exception {
         
         String id = req.getParameter("duracion");
         Pelicula p = new Pelicula();
         PeliculaDAO pd = new PeliculaDAO();
 
-        try {
+        
             ArrayList<String> lista = new ArrayList();
             FileItemFactory file = new DiskFileItemFactory();
             ServletFileUpload fileUpload = new ServletFileUpload(file);
@@ -129,10 +130,7 @@ public class PeliculaController extends HttpServlet {
             pd.insertar(p);
             this.listarPeliculas(req, resp);
 
-        } catch (Exception e) {
-
-        }
-
+      
     }
 
     private void modifcar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

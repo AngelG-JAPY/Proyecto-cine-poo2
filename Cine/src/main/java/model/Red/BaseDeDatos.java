@@ -18,6 +18,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
  * @author USUARIO
  */
 public class BaseDeDatos {
+    //18.205.156.69
     //Direccion, puerto, nombre de la base de datos. Adicional, usuario y clave
    // public static final String JDBC_URL = "jdbc:mysql://localhost:3306/cinemania?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     public static final String JDBC_URL = "jdbc:mysql://18.205.156.69/cinemania?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";

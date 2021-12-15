@@ -95,13 +95,13 @@ public class PeliculaController extends HttpServlet {
         req.getRequestDispatcher("Pelicula/EditarPelicula.jsp").forward(req, resp);
     }
 
-    private void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, FileUploadException, Exception {
-        
+    private void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String id = req.getParameter("duracion");
         Pelicula p = new Pelicula();
         PeliculaDAO pd = new PeliculaDAO();
 
-        
+        try {
             ArrayList<String> lista = new ArrayList();
             FileItemFactory file = new DiskFileItemFactory();
             ServletFileUpload fileUpload = new ServletFileUpload(file);
@@ -111,11 +111,11 @@ public class PeliculaController extends HttpServlet {
                 if (!fileItem.isFormField()) {
 
                     File f = new File("C:\\AppServ\\www\\phpMyAdmin\\img\\" + fileItem.getName());
-                    if(f.exists()){
+                    if (f.exists()) {
                         System.out.println(f.delete());
                     }
                     fileItem.write(f);
-                    p.setCartelera("http://localhost/phpMyAdmin/img/"+fileItem.getName());
+                    p.setCartelera("http://localhost/phpMyAdmin/img/" + fileItem.getName());
 
                 } else {
                     lista.add(fileItem.getString());
@@ -128,9 +128,12 @@ public class PeliculaController extends HttpServlet {
             p.setClasificacion(lista.get(4));
             p.setTrailer("falta");
             pd.insertar(p);
-            this.listarPeliculas(req, resp);
 
-      
+        } catch (Exception e) {
+        }
+
+        this.listarPeliculas(req, resp);
+
     }
 
     private void modifcar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

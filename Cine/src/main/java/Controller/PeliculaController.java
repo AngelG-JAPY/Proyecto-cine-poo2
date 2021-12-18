@@ -77,7 +77,7 @@ public class PeliculaController extends HttpServlet {
         PeliculaDAO pd = new PeliculaDAO();
         List<Pelicula> peliculas = pd.listarPeliculas();
         req.setAttribute("peliculas", peliculas);
-        req.getRequestDispatcher("Pelicula/VerPeliculas.jsp").forward(req, resp);
+        req.getRequestDispatcher("/principal/index.jsp").forward(req, resp);
     }
 
     private void borrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

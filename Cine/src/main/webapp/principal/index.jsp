@@ -1,4 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+
 <html lang="es">
 
     <head>
@@ -9,23 +12,24 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
-        <link rel="stylesheet" href="css/bootstrap-grid.min.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="css/nouislider.min.css">
-        <link rel="stylesheet" href="css/ionicons.min.css">
-        <link rel="stylesheet" href="css/plyr.css">
-        <link rel="stylesheet" href="css/photoswipe.css">
-        <link rel="stylesheet" href="css/default-skin.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/nouislider.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/ionicons.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/plyr.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/photoswipe.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/default-skin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/principal/css/main.css">
+        
 
         <!-- Favicons -->
         <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
         <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-touch-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="icon/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="${pageContext.request.contextPath}/principal/icon/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="${pageContext.request.contextPath}/principal/icon/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="${pageContext.request.contextPath}/principal/icon/apple-touch-icon-144x144.png">
 
         <meta name="description" content="">
         <meta name="keywords" content="">
@@ -44,7 +48,7 @@
                             <div class="header__content">
                                 <!-- header logo -->
                                 <a href="index.html" class="header__logo">
-                                    <img src="img/logo.svg" alt="">
+                                    <img src="${pageContext.request.contextPath}/principal/img/logo.svg" alt="">
                                 </a>
                                 <!-- end header logo -->
 
@@ -68,7 +72,7 @@
                                     <!-- end dropdown -->
 
                                     <li class="header__nav-item">
-                                        <a href="pricing.html" class="header__nav-link">membresía</a>
+                                        <a href="pricing.html" class="header__nav-link">membresÃ­a</a>
                                     </li>
 
 
@@ -101,7 +105,7 @@
                                     </button>
                                     <a href="signin.html" class="header__sign-in">
                                         <i class="icon ion-ios-log-in"></i>
-                                        <span>Iniciar Sesión</span>
+                                        <span>Iniciar SesiÃ³n</span>
                                     </a>
                                 </div>
                                 <!-- end header auth -->
@@ -153,89 +157,34 @@
                     </div>
 
                     <div class="col-12">
-                        <div class="owl-carousel home__carousel">
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <div class="card__cover">
-                                        <img src="img/covers/cover.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
-                                    </div>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
-                                        <span class="card__category">
-                                            <a href="#">Action</a>
-                                            <a href="#">Triler</a>
-                                        </span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-                                    </div>
-                                </div>
-                                <!-- end card -->
-                            </div>
+                        <div class="owl-carousel home__carousel" >
 
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <div class="card__cover">
-                                        <img src="img/covers/cover2.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
-                                    </div>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="#">Benched</a></h3>
-                                        <span class="card__category">
-                                            <a href="#">Comedy</a>
-                                        </span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-                                    </div>
-                                </div>
-                                <!-- end card -->
-                            </div>
+                            <%--<%@include file="../Pelicula/VerPeliculas.jsp" %>--%>
+                            <c:forEach  var="peliculas" items="${peliculas}"  >
 
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <div class="card__cover">
-                                        <img src="img/covers/cover3.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
+                                <div class="item">
+                                    <!-- card -->
+                                    <div class="card card--big">
+                                        <div class="card__cover">
+                                            <img src="${peliculas.cartelera}" alt="spiderman">
+                                            <a href="#" class="card__play">
+                                                <i class="icon ion-ios-play"></i>
+                                            </a>
+                                        </div>
+                                        <div class="card__content">
+                                            <h3 class="card__title"><a href="#">${peliculas.nombre}</a></h3>
+                                            <span class="card__category">
+                                                <a href="#">Action</a>
+                                                <a href="#">Triler</a>
+                                            </span>
+                                            <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                                        </div>
                                     </div>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="#">Whitney</a></h3>
-                                        <span class="card__category">
-                                            <a href="#">Romance</a>
-                                            <a href="#">Drama</a>
-                                        </span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
-                                    </div>
+                                    <!-- end card -->
                                 </div>
-                                <!-- end card -->
-                            </div>
 
-                            <div class="item">
-                                <!-- card -->
-                                <div class="card card--big">
-                                    <div class="card__cover">
-                                        <img src="img/covers/cover4.jpg" alt="">
-                                        <a href="#" class="card__play">
-                                            <i class="icon ion-ios-play"></i>
-                                        </a>
-                                    </div>
-                                    <div class="card__content">
-                                        <h3 class="card__title"><a href="#">Blindspotting</a></h3>
-                                        <span class="card__category">
-                                            <a href="#">Comedy</a>
-                                            <a href="#">Drama</a>
-                                        </span>
-                                        <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
-                                    </div>
-                                </div>
-                                <!-- end card -->
-                            </div>
+                            </c:forEach>
+
                         </div>
                     </div>
                 </div>
@@ -262,14 +211,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Proximos estrenos</a>
                                 </li>
-
-                               <!-- <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">TV SERIES</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">CARTOONS</a>
-                                </li> -->
                             </ul>
                             <!-- end content tabs nav -->
 
@@ -285,10 +226,6 @@
                                         <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">NEW RELEASES</a></li>
 
                                         <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">MOVIES</a></li>
-
-                                        <!--<li class="nav-item"><a class="nav-link" id="3-tab" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">TV SERIES</a></li>
-
-                                        <li class="nav-item"><a class="nav-link" id="4-tab" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">CARTOONS</a></li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -301,7 +238,7 @@
             <div class="container">
                 <!-- content tabs -->
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+                    <div class="tab-pane fade  show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
                         <div class="row">
 
                             <!-- card -->
@@ -311,7 +248,7 @@
                                         <div class="col-12 col-sm-4">
                                             <div class="card__cover">
                                                 <!-- ${pageContext.request.contextPath} -->
-                                                <img src="img/addams2.jpg" alt="">
+                                                <img src="${pageContext.request.contextPath}/principal/img/addams2.jpg" alt="">
                                                 <a href="#" class="card__play">
                                                     <i class="icon ion-ios-play"></i>
                                                 </a>
@@ -344,11 +281,6 @@
                                 </div>
                             </div>
                             <!-- end card -->
-                            
-                            
-
-
-
 
                             <!-- card -->
                             <div class="col-6 col-sm-12 col-lg-6">
@@ -808,7 +740,7 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
                 <!-- end content tabs -->
             </div>

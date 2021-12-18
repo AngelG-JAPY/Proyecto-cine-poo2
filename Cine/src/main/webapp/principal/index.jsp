@@ -160,19 +160,18 @@
                         <div class="owl-carousel home__carousel" >
 
                             <%--<%@include file="../Pelicula/VerPeliculas.jsp" %>--%>
-                            <c:forEach  var="peliculas" items="${peliculas}"  >
-
-                                <div class="item">
+                            
+                            <div class="item">
                                     <!-- card -->
                                     <div class="card card--big">
                                         <div class="card__cover">
-                                            <img src="${peliculas.cartelera}" alt="spiderman">
+                                            <img src="${pageContext.request.contextPath}/principal/img/addams2.jpg" alt="spiderman">
                                             <a href="#" class="card__play">
                                                 <i class="icon ion-ios-play"></i>
                                             </a>
                                         </div>
                                         <div class="card__content">
-                                            <h3 class="card__title"><a href="#">${peliculas.nombre}</a></h3>
+                                            <h3 class="card__title"><a href="#">a</a></h3>
                                             <span class="card__category">
                                                 <a href="#">Action</a>
                                                 <a href="#">Triler</a>
@@ -182,8 +181,6 @@
                                     </div>
                                     <!-- end card -->
                                 </div>
-
-                            </c:forEach>
 
                         </div>
                     </div>

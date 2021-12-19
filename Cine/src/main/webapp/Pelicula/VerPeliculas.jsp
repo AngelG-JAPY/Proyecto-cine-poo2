@@ -1,56 +1,61 @@
-<%-- 
-    Document   : VerPeliculas
-    Created on : 21/11/2021, 2:54:23 p. m.
-    Author     : USUARIO
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file = "../principal/Header.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- 
-<!--<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de Peliculas</title>
-<!-- CSS only
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</head>
-<body>
 
-<table class="table">
-    <thead class="table-dark">
-        <tr>
-            <th scope="col"># ID</th>
-            <th scope="col">Pelicula</th>
-            <th scope="col">Genero</th>
-            <th scope="col">Duracion</th>
-            <th scope="col">Director</th>
-            <th scope="col">Clasificaci�n</th>
-            <th scope="col">Cartelera</th>
-            <th scope="col">Trailer</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-<c:forEach var="peliculas" items="${peliculas}">
-    <tr>
-        <td>${peliculas.id}</td>
-        <td>${peliculas.nombre}</td>
-        <td>${peliculas.genero}</td>
-        <td>${peliculas.duracion} min</td>
-        <td>${peliculas.director}</td>
-        <td>${peliculas.clasificacion}</td>
-        <td><img src="${peliculas.cartelera}" width="75px" alt="${peliculas.nombre}"/></td>
-        <td>${peliculas.trailer}</td>  
-        <td>
-            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/peliculas?accion=borrar&id=${peliculas.id}" role="button">Eliminar</a>
-            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/peliculas?accion=editar&id=${peliculas.id}" role="button">Editar</a>
-        </td>
-    </tr>
-</c:forEach>
-</tbody>
-</table>
-<a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/Pelicula/AggPelicula.jsp" role="button">Agregar nueva pelicula</a> 
+<section class="home home--bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="home__title"><b>EN CARTELERA</b></h1>
 
-</body>
-</html> -->
+                <button class="home__nav home__nav--prev" type="button">
+                    <i class="icon ion-ios-arrow-round-back"></i>
+                </button>
+                <button class="home__nav home__nav--next" type="button">
+                    <i class="icon ion-ios-arrow-round-forward"></i>
+                </button>
+            </div>
+            <div class="col-12">
+                <div class="owl-carousel home__carousel" >
+                    <c:forEach var="peliculas" items="${peliculas}">
+                        <div class="item">
+                            <!-- card -->
+                            <div class="card card--big">
+                                <div class="card__cover">
+                                    <img src="${peliculas.cartelera}" alt="spiderman">
+                                    <a href="#" class="card__play">
+                                        <i class="icon ion-ios-play"></i>
+                                    </a>
+                                </div>
+                                <div class="card__content">
+                                    <h3 class="card__title"><a href="#">a</a></h3>
+                                    <span class="card__category">
+                                        <a href="#">Action</a>
+                                        <a href="#">Triler</a>
+                                    </span>
+                                    <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                                </div>
+                            </div>
+                            <!-- end card -->
+
+                        </div>
+                        <!-- end home -->
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <script src="${pageContext.request.contextPath}/principal/js/jquery-3.3.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/owl.carousel.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/jquery.mousewheel.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/jquery.mCustomScrollbar.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/wNumb.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/nouislider.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/plyr.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/jquery.morelines.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/s/photoswipe.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/photoswipe-ui-default.min.js"></script>
+        <script src="${pageContext.request.contextPath}/principal/js/main.js"></script>
 

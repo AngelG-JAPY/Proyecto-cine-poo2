@@ -39,15 +39,14 @@
                     <div class="card">
                         <div class="card__cover">
                             <img src="${peliculas.cartelera}" alt="">
-                            <a href="#" class="card__play">
+                            <a href="${pageContext.request.contextPath}/peliculas?accion=detalles&id=${peliculas.id}" class="card__play">
                                 <i class="icon ion-ios-play"></i>
                             </a>
                         </div>
                         <div class="card__content">
                             <h3 class="card__title"><a href="#">${peliculas.nombre}</a></h3>
                             <span class="card__category">
-                                <a href="#">Action</a>
-                                <a href="#">Triler</a>
+                                <a href="#">${peliculas.genero}</a>
                             </span>
                             <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
                         </div>

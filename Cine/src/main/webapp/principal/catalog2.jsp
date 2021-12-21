@@ -41,7 +41,7 @@
                             <div class="col-12 col-sm-4">
                                 <div class="card__cover">
                                     <img src="${peliculas.cartelera}" alt="">
-                                    <a href="#" class="card__play">
+                                    <a href="${pageContext.request.contextPath}/peliculas?accion=detalles&id=${peliculas.id}" class="card__play">
                                         <i class="icon ion-ios-play"></i>
                                     </a>
                                 </div>
@@ -51,8 +51,7 @@
                                 <div class="card__content">
                                     <h3 class="card__title"><a href="#">${peliculas.nombre}</a></h3>
                                     <span class="card__category">
-                                        <a href="#">Action</a>
-                                        <a href="#">Triler</a>
+                                        <a href="#">${peliculas.genero}</a>
                                     </span>
 
                                     <div class="card__wrap">
@@ -60,12 +59,12 @@
 
                                         <ul class="card__list">
                                             <li>HD</li>
-                                            <li>16+</li>
+                                            <li>${peliculas.clasificacion}</li>
                                         </ul>
                                     </div>
 
                                     <div class="card__description">
-                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+                                        <p>${peliuclas.sinopsis}</p>
                                     </div>
                                 </div>
                             </div>

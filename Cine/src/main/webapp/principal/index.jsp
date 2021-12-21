@@ -25,7 +25,7 @@
                             <div class="card card--big">
                                 <div class="card__cover">
                                     <img src="${peliculas.cartelera}" alt="spiderman">
-                                    <a href="#" class="card__play">
+                                    <a href="${pageContext.request.contextPath}/peliculas?accion=detalles&id=${peliculas.id}" class="card__play">
                                         <i class="icon ion-ios-play"></i>
                                     </a>
                                 </div>
@@ -63,10 +63,6 @@
                     <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Cartelera</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Proximos estrenos</a>
                         </li>
                     </ul>
                     <!-- end content tabs nav -->
@@ -107,7 +103,7 @@
                                         <div class="card__cover">
                                             <!-- ${pageContext.request.contextPath} -->
                                             <img src="${peliculas.cartelera}" alt="">
-                                            <a href="#" class="card__play">
+                                            <a href="${pageContext.request.contextPath}/peliculas?accion=detalles&id=${peliculas.id}" class="card__play">
                                                 <i class="icon ion-ios-play"></i>
                                             </a>
                                         </div>
@@ -144,36 +140,7 @@
                     </div>
                 </div>
             </div>
-            <!-<!-- proximos estrenos -->
-            <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
-                <div class="row">
-                    <c:forEach var="peliculas" items="${peliculas}">
-                        <!-- card -->
-                        <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                            <div class="card">
-                                <div class="card__cover">
-                                    <img src="${peliculas.cartelera}" alt="">
-                                    <a href="#" class="card__play">
-                                        <i class="icon ion-ios-play"></i>
-                                    </a>
-                                </div>
-                                <div class="card__content">
-                                    <h3 class="card__title"><a href="#">${peliculas.nombre}</a></h3>
-                                    <span class="card__category">
-                                        <a href="#">Action</a>
-                                        <a href="#">Triler</a>
-                                    </span>
-                                    <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end card -->
-                    </c:forEach>
-                    <div class="col-12">
-                        <a href="#" class="section__btn">Show more</a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <!-- end content tabs -->
     </div>

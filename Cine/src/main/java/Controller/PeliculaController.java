@@ -43,11 +43,15 @@ public class PeliculaController extends HttpServlet {
                     break;
                     
                 case "cartelera":
-                    this.enviarPeliculas(req, resp);
+                    this.cartelera(req, resp);
                     break;
                     
                 case "estrenos":
                     this.estrenos(req, resp);
+                    break;
+                    
+                case "detalles":
+                    this.ampliarInformacion(req,resp);
                     break;
 
                 default:
@@ -70,7 +74,6 @@ public class PeliculaController extends HttpServlet {
 
                 case "modificar":
                     this.modifcar(req, resp);
-
                     break;
                 default:
                     this.listarPeliculas(req, resp);
@@ -83,21 +86,21 @@ public class PeliculaController extends HttpServlet {
 
     private void listarPeliculas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PeliculaDAO pd = new PeliculaDAO();
-        List<Pelicula> peliculas = pd.listarPeliculas();
+        List<Pelicula> peliculas = pd.listarPeliculas(1);
         req.setAttribute("peliculas", peliculas);
         req.getRequestDispatcher("/principal/index.jsp").forward(req, resp);
     }
     
-    private void enviarPeliculas (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void cartelera (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PeliculaDAO pd = new PeliculaDAO();
-        List<Pelicula> peliculas = pd.listarPeliculas();
+        List<Pelicula> peliculas = pd.listarPeliculas(1);
         req.setAttribute("peliculas", peliculas);
         req.getRequestDispatcher("/principal/catalog2.jsp").forward(req, resp);
     }
     
     private void estrenos (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PeliculaDAO pd = new PeliculaDAO();
-        List<Pelicula> peliculas = pd.listarPeliculas();
+        List<Pelicula> peliculas = pd.listarPeliculas(0);
         req.setAttribute("peliculas", peliculas);
         req.getRequestDispatcher("/principal/catalog1.jsp").forward(req, resp);
     }
@@ -173,5 +176,12 @@ public class PeliculaController extends HttpServlet {
         PeliculaDAO pd = new PeliculaDAO();
         pd.actualizarPelicula(p);
         this.listarPeliculas(req, resp);
+    }
+
+    private void ampliarInformacion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.valueOf(req.getParameter("id"));
+        Pelicula pelicula = new PeliculaDAO().consultarByID(new Pelicula(id));
+        req.setAttribute("pelicula", pelicula);
+        req.getRequestDispatcher("principal/details1.jsp").forward(req, resp);
     }
 }

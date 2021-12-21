@@ -48,7 +48,7 @@
                         <div class="col-12">
                             <div class="header__content">
                                 <!-- header logo -->
-                                <a href="index.html" class="header__logo">
+                                <a href="${pageContext.request.contextPath}/peliculas" class="header__logo">
                                     <img src="${pageContext.request.contextPath}/principal/img/logo.svg" alt="">
                                 </a>
                                 <!-- end header logo -->
@@ -57,7 +57,7 @@
                                 <ul class="header__nav">
                                     <!-- dropdown -->
                                     <li class="header__nav-item">
-                                        <a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuHome" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">inicio</a>
+                                        <a href="${pageContext.request.contextPath}/peliculas" class="header__nav-link">Inicio</a>
                                     </li>
                                     <!-- end dropdown -->
 
@@ -66,19 +66,19 @@
                                         <a class="dropdown-toggle header__nav-link" href="#" role="button" id="dropdownMenuCatalog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">peliculas</a>
 
                                         <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuCatalog">
-                                            <li><a href="catalog2.html">Cartelera</a></li>
-                                            <li><a href="catalog1.html">Proximos Estrenos</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/peliculas?accion=cartelera">Cartelera</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/peliculas?accion=estrenos">Proximos Estrenos</a></li>
                                         </ul>
                                     </li>
                                     <!-- end dropdown -->
 
                                     <li class="header__nav-item">
-                                        <a href="pricing.html" class="header__nav-link">membresÃ­a</a>
+                                        <a href="${pageContext.request.contextPath}/principal/pricing.jsp" class="header__nav-link">membresí­a</a>
                                     </li>
 
 
                                     <li class="header__nav-item">
-                                        <a href="signup.html" class="header__nav-link">Registrarse</a>
+                                        <a href="${pageContext.request.contextPath}/principal/signup.html" class="header__nav-link">Registrarse</a>
                                     </li>
 
                                     <!-- dropdown -->
@@ -87,11 +87,11 @@
 
                                         <ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
                                             <li class="header__nav-item">
-                                                <a href="faq.html" >ayuda</a>
+                                                <a href="${pageContext.request.contextPath}/principal/faq.html" >Ayuda</a>
                                             </li>
 
                                             <li class="header__nav-item">
-                                                <a href="about.html">Nosotros</a>
+                                                <a href="${pageContext.request.contextPath}/principal/about.html">Nosotros</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -104,7 +104,7 @@
                                     <button class="header__search-btn" type="button">
                                         <i class="icon ion-ios-search"></i>
                                     </button>
-                                    <a href="signin.html" class="header__sign-in">
+                                    <a href="${pageContext.request.contextPath}/principal/signin.html" class="header__sign-in">
                                         <i class="icon ion-ios-log-in"></i>
                                         <span>Iniciar Sesión</span>
                                     </a>

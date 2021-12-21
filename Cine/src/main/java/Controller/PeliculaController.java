@@ -41,6 +41,14 @@ public class PeliculaController extends HttpServlet {
                 case "editar":
                     this.editar(req, resp);
                     break;
+                    
+                case "cartelera":
+                    this.enviarPeliculas(req, resp);
+                    break;
+                    
+                case "estrenos":
+                    this.estrenos(req, resp);
+                    break;
 
                 default:
                     this.listarPeliculas(req, resp);
@@ -78,6 +86,20 @@ public class PeliculaController extends HttpServlet {
         List<Pelicula> peliculas = pd.listarPeliculas();
         req.setAttribute("peliculas", peliculas);
         req.getRequestDispatcher("/principal/index.jsp").forward(req, resp);
+    }
+    
+    private void enviarPeliculas (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PeliculaDAO pd = new PeliculaDAO();
+        List<Pelicula> peliculas = pd.listarPeliculas();
+        req.setAttribute("peliculas", peliculas);
+        req.getRequestDispatcher("/principal/catalog2.jsp").forward(req, resp);
+    }
+    
+    private void estrenos (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PeliculaDAO pd = new PeliculaDAO();
+        List<Pelicula> peliculas = pd.listarPeliculas();
+        req.setAttribute("peliculas", peliculas);
+        req.getRequestDispatcher("/principal/catalog1.jsp").forward(req, resp);
     }
 
     private void borrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

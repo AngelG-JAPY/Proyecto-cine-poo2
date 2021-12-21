@@ -18,6 +18,8 @@ public class Pelicula {
     private String clasificacion;
     private String cartelera;
     private String trailer;
+    private boolean enFuncion;
+    private String sinopsis;
 
     public Pelicula() {
     }
@@ -31,6 +33,20 @@ public class Pelicula {
         this.cartelera = cartelera;
         this.trailer = trailer;
     }
+
+    public Pelicula(int id, int duracion, String nombre, String genero, String director, String clasificacion, String cartelera, String trailer, boolean enFuncion, String sinopsis) {
+        this.id = id;
+        this.duracion = duracion;
+        this.nombre = nombre;
+        this.genero = genero;
+        this.director = director;
+        this.clasificacion = clasificacion;
+        this.cartelera = cartelera;
+        this.trailer = trailer;
+        this.enFuncion = enFuncion;
+        this.sinopsis = sinopsis;
+    }
+    
     
     public Pelicula(int id){
         this.id = id;
@@ -100,10 +116,29 @@ public class Pelicula {
         this.trailer = trailer;
     }
 
+    public boolean isEnFuncion() {
+        return enFuncion;
+    }
+
+    public void setEnFuncion(boolean enFuncion) {
+        this.enFuncion = enFuncion;
+    }
+
+    public String getSinopsis() {
+        return sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
+    }
+
     @Override
     public String toString() {
-        return "Pelicula{" + "id=" + id + ", duracion=" + duracion + ", nombre=" + nombre + ", genero=" + genero + '}';
+        return "Pelicula{" + "id=" + id + ", duracion=" + duracion + ", nombre=" + nombre + ", genero=" + genero + ", director=" + director + ", clasificacion=" + clasificacion + ", cartelera=" + cartelera + ", trailer=" + trailer + ", enFuncion=" + enFuncion + ", sinopsis=" + sinopsis + '}';
     }
+    
+
+    
     
     
 }

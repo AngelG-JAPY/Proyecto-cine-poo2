@@ -21,11 +21,15 @@ import model.Red.BaseDeDatos;
 public class PeliculaDAO {
 
     private static final String QUERY_INSERTAR
-            = "INSERT INTO pelicula (nombre, genero, duracion, director, clasificacion, cartelera, trailer) VALUES (?,?,?,?,?,?,?)";
+            = "INSERT INTO pelicula (nombre, genero, duracion, director, clasificacion, cartelera, trailer, funcion, sinopsis) VALUES (?,?,?,?,?,?,?,?,?)";
 
-    private static final String QUERY_LISTAR = "SELECT * FROM pelicula";
+    private static final String QUERY_LISTAR_GENERAL = "SELECT * FROM pelicula";
+    
+    private static final String QUERY_LISTAR_EN_FUNCION = "SELECT * FROM pelicula WHERE funcion = 1";
+    
+    private static final String QUERY_LISTAR_PROXIMOS_ESTRENOS = "SELECT * FROM pelicula WHERE funcion = 0";
 
-    private static final String QUERY_ACTULIZAR = "UPDATE pelicula SET nombre = ?, genero = ?, duracion = ?, director = ?, clasificacion = ?, cartelera = ?, trailer = ? WHERE id = ?";
+    private static final String QUERY_ACTULIZAR = "UPDATE pelicula SET nombre = ?, genero = ?, duracion = ?, director = ?, clasificacion = ?, cartelera = ?, trailer = ?, funcion = ?, sinopsis = ? WHERE id = ?";
 
     private static final String QUERY_ELIMINAR = "DELETE FROM pelicula WHERE id = ?";
 
@@ -76,7 +80,7 @@ public class PeliculaDAO {
 
     }
 
-    public List<Pelicula> listarPeliculas() {
+    public List<Pelicula> listarPeliculas(int funcion) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rset = null;
@@ -85,7 +89,11 @@ public class PeliculaDAO {
         try {
 
             con = BaseDeDatos.getConnection();
-            ps = con.prepareStatement(QUERY_LISTAR);
+            if(funcion == 1){
+                ps = con.prepareStatement(QUERY_LISTAR_EN_FUNCION);
+            }else{
+                ps = con.prepareStatement(QUERY_LISTAR_PROXIMOS_ESTRENOS);
+            }
             rset = ps.executeQuery();
 
             while (rset.next()) {
@@ -98,7 +106,8 @@ public class PeliculaDAO {
                 p.setClasificacion(rset.getString("clasificacion"));
                 p.setCartelera(rset.getString("cartelera"));
                 p.setTrailer(rset.getString("trailer"));
-
+                p.setEnFuncion(Boolean.valueOf(rset.getBoolean("funcion")));
+                p.setSinopsis(rset.getString("sinopsis"));
                 listaPeliculas.add(p);
             }
 
@@ -124,6 +133,7 @@ public class PeliculaDAO {
         }
         return listaPeliculas;
     }
+    
 
     public void actualizarPelicula(Pelicula p) {
         Connection con = null;
@@ -141,7 +151,9 @@ public class PeliculaDAO {
             ps.setString(5, p.getClasificacion());
             ps.setString(6, p.getCartelera());
             ps.setString(7, p.getTrailer());
-            ps.setInt(8, p.getId());
+            ps.setBoolean(8, p.isEnFuncion());
+            ps.setString(9, p.getSinopsis());
+            ps.setInt(10, p.getId());
 
             int consulta = ps.executeUpdate();
 
@@ -220,6 +232,8 @@ public class PeliculaDAO {
             rset = ps.executeQuery();
             rset.absolute(1);
             pelicula = new Pelicula(rset.getInt("duracion"), rset.getString("nombre"), rset.getString("genero"), rset.getString("director"), rset.getString("clasificacion"), rset.getString("cartelera"), rset.getString("trailer"));
+            pelicula.setEnFuncion(rset.getBoolean("funcion"));
+            pelicula.setSinopsis(rset.getString("sinopsis"));
             pelicula.setId(rset.getInt("id"));
         } catch (SQLException e) {
 
